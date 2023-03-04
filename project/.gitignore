@@ -24,4 +24,4 @@ yarn-error.log*
 # editors
 .idea
 *.sublime*
-.vscode
+/.vscode
