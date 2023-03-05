@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import SmallCard from './components/small-card/small-card';
+import { FilmCardProps } from './types/film-info';
 
-const cards = [];
-for(let i = 0; i < 20; i++) {
-  cards[i] = <SmallCard/>;
-}
+const filmInfo: FilmCardProps = {
+  title: 'The Grand Budapest Hotel',
+  genre: 'Drama',
+  year:  2014,
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -14,6 +15,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App smallCard={<SmallCard/>} />
+    <App {...filmInfo} />
   </React.StrictMode>,
 );

@@ -1,6 +1,9 @@
-import {AppSmallCardProps} from '../../types/main';
+import React from 'react';
+import SmallCard from '../../components/small-card/small-card';
 
-function Main({smallCard}: AppSmallCardProps): JSX.Element {
+const items = [...Array(20).keys()];
+
+function Main(): JSX.Element {
   return (
     <div className="page-content">
       <section className="catalog">
@@ -40,7 +43,11 @@ function Main({smallCard}: AppSmallCardProps): JSX.Element {
         </ul>
 
         <div className="catalog__films-list">
-          {smallCard}
+          {items.map((it) => (
+            <React.Fragment key={it}>
+              <SmallCard />
+            </React.Fragment>
+          ))}
         </div>
 
         <div className="catalog__more">

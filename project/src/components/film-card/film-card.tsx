@@ -1,4 +1,6 @@
-function FilmCard(): JSX.Element {
+import {FilmCardProps} from '../../types/film-info';
+
+function FilmCard({title, genre, year}: FilmCardProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -35,10 +37,10 @@ function FilmCard(): JSX.Element {
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="film-card__title">{title}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">Drama</span>
-              <span className="film-card__year">2014</span>
+              <span className="film-card__genre">{genre}</span>
+              <span className="film-card__year">{year}</span>
             </p>
 
             <div className="film-card__buttons">
