@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { FilmCardProps } from './types/film-info';
 
-const filmInfo: FilmCardProps = {
+const filmInfo = {
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
   year:  2014,
@@ -15,6 +14,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App {...filmInfo} />
+    <App { ...filmInfo} />
   </React.StrictMode>,
 );

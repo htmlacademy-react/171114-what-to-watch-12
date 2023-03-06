@@ -1,14 +1,13 @@
 import Main from '../../pages/main/main';
-import FilmCard from '../film-card/film-card';
-import { FilmCardProps } from '../../types/film-info';
+import PromoFilm from '../promo-film/promo-film';
+import { PromoFilmProps } from '../../types/film-info';
 
-function App(filmInfo: FilmCardProps): JSX.Element {
+function App(filmInfo: PromoFilmProps): JSX.Element {
   return (
     <section>
-      <FilmCard {...filmInfo} />
+      <PromoFilm title={filmInfo.title} genre={filmInfo.genre} year={filmInfo.year} />
       <Main />
     </section>
-
   );
 }
 
