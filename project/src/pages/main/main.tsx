@@ -1,45 +1,50 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { NavLink } from 'react-router-dom';
 import SmallCard from '../../components/small-card/small-card';
-import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
 
 const items = [...Array(20).keys()];
 
 function Main(): JSX.Element {
   return (
     <div className="page-content">
+      <Helmet>
+        <title>What to watch. Main page</title>
+      </Helmet>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <ul className="catalog__genres-list">
           <li className="catalog__genres-item catalog__genres-item--active">
-            <a href="/" className="catalog__genres-link">All genres</a>
+            <NavLink to="/" className="catalog__genres-link">All genres</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Comedies</a>
+            <NavLink to="/" className="catalog__genres-link">Comedies</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Crime</a>
+            <NavLink to="/" className="catalog__genres-link">Crime</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Documentary</a>
+            <NavLink to="/" className="catalog__genres-link">Documentary</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Dramas</a>
+            <NavLink to="/" className="catalog__genres-link">Dramas</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Horror</a>
+            <NavLink to="/" className="catalog__genres-link">Horror</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Kids & Family</a>
+            <NavLink to="/" className="catalog__genres-link">Kids & Family</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Romance</a>
+            <NavLink to="/" className="catalog__genres-link">Romance</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Sci-Fi</a>
+            <NavLink to="/" className="catalog__genres-link">Sci-Fi</NavLink>
           </li>
           <li className="catalog__genres-item">
-            <a href="/" className="catalog__genres-link">Thrillers</a>
+            <NavLink to="/" className="catalog__genres-link">Thrillers</NavLink>
           </li>
         </ul>
 
@@ -55,12 +60,8 @@ function Main(): JSX.Element {
           <button className="catalog__button" type="button">Show more</button>
         </div>
       </section>
-      <footer className="page-footer">
-        <Logo />
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+
+      <Footer />
     </div>
   );
 }

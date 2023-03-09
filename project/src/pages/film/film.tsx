@@ -1,8 +1,17 @@
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Header from '../../components/header/header';
+import LikeThis from '../../components/like-this/like-this';
+import Footer from '../../components/footer/footer';
 
 function Film(): JSX.Element {
   return (
-    <div>
+    <React.Fragment>
+      <Helmet>
+        <title>What to watch. Film</title>
+      </Helmet>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
@@ -34,7 +43,7 @@ function Film(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to="/films/:id/review" className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -50,13 +59,13 @@ function Film(): JSX.Element {
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
-                    <a href="/" className="film-nav__link">Overview</a>
+                    <NavLink to="/" className="film-nav__link">Overview</NavLink>
                   </li>
                   <li className="film-nav__item">
-                    <a href="/" className="film-nav__link">Details</a>
+                    <NavLink to="/" className="film-nav__link">Details</NavLink>
                   </li>
                   <li className="film-nav__item">
-                    <a href="/" className="film-nav__link">Reviews</a>
+                    <NavLink to="/" className="film-nav__link">Reviews</NavLink>
                   </li>
                 </ul>
               </nav>
@@ -84,22 +93,10 @@ function Film(): JSX.Element {
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-          </div>
-        </section>
+        <LikeThis />
+        <Footer />
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 
