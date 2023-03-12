@@ -10,8 +10,15 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PromoFilm from '../promo-film/promo-film';
 import PrivateRoute from '../../components/private-route/private-route';
 import { PromoFilmProps } from '../../types/film-info';
+import { Films } from '../../types/film-info';
 
-function App({ title, genre, year }: PromoFilmProps): JSX.Element {
+
+type AppScreenProps = {
+  promoFilmInfo: PromoFilmProps;
+  films: Films;
+}
+
+function App({promoFilmInfo, films}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -19,8 +26,8 @@ function App({ title, genre, year }: PromoFilmProps): JSX.Element {
           path={AppRoute.Main}
           element={
             <section>
-              <PromoFilm title={title} genre={genre} year={year} />
-              <Main />
+              <PromoFilm title={promoFilmInfo.title} genre={promoFilmInfo.genre} year={promoFilmInfo.year} />
+              <Main films={films} />
             </section>
           }
         />

@@ -1,10 +1,13 @@
 import React from 'react';
 import SmallCard from '../../components/small-card/small-card';
 import Logo from '../../components/logo/logo';
+import { Films } from '../../types/film-info';
 
-const items = [...Array(20).keys()];
+type MainProps = {
+  films: Films;
+};
 
-function Main(): JSX.Element {
+function Main({films}: MainProps): JSX.Element {
   return (
     <div className="page-content">
       <section className="catalog">
@@ -44,9 +47,9 @@ function Main(): JSX.Element {
         </ul>
 
         <div className="catalog__films-list">
-          {items.map((it) => (
-            <React.Fragment key={it}>
-              <SmallCard />
+          {films.map((film) => (
+            <React.Fragment key={film.id}>
+              <SmallCard title={film.title} img={film.img} id={film.id}/>
             </React.Fragment>
           ))}
         </div>

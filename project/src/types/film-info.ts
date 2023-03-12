@@ -3,3 +3,11 @@ export type PromoFilmProps = {
   genre: string;
   year: number;
 };
+
+export type SmallCardProps = {
+  title: string;
+  img: string;
+  id: string;
+};
+
+export type Films = SmallCardProps[];
