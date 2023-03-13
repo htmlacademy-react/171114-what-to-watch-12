@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
-function FilmCardHeader(): JSX.Element {
+type FilmCardHeaderProps = {
+  backgroundImage: string;
+  name: string;
+  id: number;
+  posterImage: string;
+};
+
+function FilmCardHeader({backgroundImage, name, id, posterImage}: FilmCardHeaderProps): JSX.Element {
   return (
     <div className="film-card__header">
       <div className="film-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+        <img src={backgroundImage} alt={name} />
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -16,10 +23,10 @@ function FilmCardHeader(): JSX.Element {
         <nav className="breadcrumbs">
           <ul className="breadcrumbs__list">
             <li className="breadcrumbs__item">
-              <Link to="/" className="breadcrumbs__link">The Grand Budapest Hotel</Link>
+              <Link to={`/films/:${id}`} className="breadcrumbs__link">{name}</Link>
             </li>
             <li className="breadcrumbs__item">
-              <Link to="/" className="breadcrumbs__link">Add review</Link>
+              <Link to={`/films/:${id}/review`} className="breadcrumbs__link">Add review</Link>
             </li>
           </ul>
         </nav>
@@ -37,7 +44,7 @@ function FilmCardHeader(): JSX.Element {
       </header>
 
       <div className="film-card__poster film-card__poster--small">
-        <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+        <img src={posterImage} alt={name} width="218" height="327" />
       </div>
     </div>
   );

@@ -6,3 +6,5 @@ export enum AppRoute {
   MyList = '/mylist',
   Player = '/player/:id'
 }
+
+export const FILM_COUNT_PER_STEP = 8;

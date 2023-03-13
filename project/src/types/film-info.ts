@@ -1,13 +1,14 @@
 export type PromoFilmProps = {
-  title: string;
+  name: string;
   genre: string;
   year: number;
+  id: number;
 };
 
-export type SmallCardProps = {
-  title: string;
-  img: string;
-  id: string;
+export type Film = {
+  name: string;
+  previewImage: string;
+  id: number;
 };
 
-export type Films = SmallCardProps[];
+export type Films = Film[];

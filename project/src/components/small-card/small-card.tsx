@@ -1,15 +1,27 @@
+import { Link } from 'react-router-dom';
+import { Film } from '../../types/film-info';
 
-import {Link} from 'react-router-dom';
-import { SmallCardProps } from '../../types/film-info';
+export type SmallCardProps = Film & {
+  onSetActiveFilm: (id: number | null) => void;
+};
 
-function SmallCard({title, img, id}: SmallCardProps): JSX.Element {
+function SmallCard({
+  name,
+  previewImage,
+  id,
+  onSetActiveFilm
+}: SmallCardProps): JSX.Element {
   return (
-    <article className="small-film-card catalog__films-card">
+    <article
+      className="small-film-card catalog__films-card"
+      onMouseEnter={() => onSetActiveFilm(id)}
+      onMouseLeave={() => onSetActiveFilm(null)}
+    >
       <div className="small-film-card__image">
-        <img src={img} alt={title} width="280" height="175" />
+        <img src={previewImage} alt={name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link to="/films/:{id}" className="small-film-card__link">{title}</Link>
+        <Link to={`/films/${id}`} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );
