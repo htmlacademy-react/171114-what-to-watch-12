@@ -22,3 +22,4 @@ root.render(
     <App promoFilmInfo={filmInfo} films={renderedfilmsCards} />
   </React.StrictMode>,
 );
+
