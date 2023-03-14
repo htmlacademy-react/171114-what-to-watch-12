@@ -19,9 +19,9 @@ function AddReviewForm(): JSX.Element {
         <div className="rating__stars">
           {
             items.map((it) => (
-              <React.Fragment key={it + 1}>
-                <input className="rating__input" onChange={() => setFormData({...formData, rating: 10 - it})} value={formData.rating} id={`${it + 1}`} type="radio" name="rating" />
-                <label className="rating__label" htmlFor={`${it + 1}`}>Rating {it + 1} </label>
+              <React.Fragment key={10 - it}>
+                <input className="rating__input" onChange={() => setFormData({...formData, rating: 10 - it})} value={formData.rating} id={`${10 - it}`} type="radio" name="rating" />
+                <label className="rating__label" htmlFor={`${10 - it}`}>Rating {10 - it} </label>
               </React.Fragment>))
           }
         </div>
