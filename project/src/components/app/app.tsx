@@ -22,46 +22,47 @@ function App({promoFilmInfo, films}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={
-              <section>
-                <PromoFilm name={promoFilmInfo.name} genre={promoFilmInfo.genre} year={promoFilmInfo.year} id={promoFilmInfo.id}/>
-                <Main films={films} />
-              </section>
-            }
-          />
-          <Route
-            path={AppRoute.AddReview}
-            element={<AddReview />}
-          />
-          <Route
-            path={AppRoute.Film}
-            element={<Film />}
-          />
-          <Route
-            path={AppRoute.SignIn}
-            element={<SignIn />}
-          />
-          <Route
-            path={AppRoute.MyList}
-            element={
-              <PrivateRoute>
-                <MyList films={films} />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Player}
-            element={<Player />}
-          />
-          <Route
-            path="*"
-            element={<NotFoundScreen />}
-          />
-        </Routes>
+        <ScrollToTop>
+          <Routes>
+            <Route
+              path={AppRoute.Main}
+              element={
+                <section>
+                  <PromoFilm name={promoFilmInfo.name} genre={promoFilmInfo.genre} year={promoFilmInfo.year} id={promoFilmInfo.id}/>
+                  <Main films={films} />
+                </section>
+              }
+            />
+            <Route
+              path={AppRoute.AddReview}
+              element={<AddReview />}
+            />
+            <Route
+              path={AppRoute.Film}
+              element={<Film />}
+            />
+            <Route
+              path={AppRoute.SignIn}
+              element={<SignIn />}
+            />
+            <Route
+              path={AppRoute.MyList}
+              element={
+                <PrivateRoute>
+                  <MyList films={films} />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={AppRoute.Player}
+              element={<Player />}
+            />
+            <Route
+              path="*"
+              element={<NotFoundScreen />}
+            />
+          </Routes>
+        </ScrollToTop>
       </BrowserRouter>
     </HelmetProvider>
   );

@@ -2,14 +2,14 @@ import React from 'react';
 import { useState, ChangeEventHandler } from 'react';
 
 function AddReviewForm(): JSX.Element {
-  const items = [...Array(10).keys()];
+  const items = [...Array(10).keys()].reverse();
 
   const [formData, setFormData] = useState({
     rating: 0,
     reviewText: '',
   });
 
-  const textChangeHandler: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
+  const handleTextChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
     setFormData({...formData, reviewText: event.target.value});
   };
 
@@ -19,16 +19,16 @@ function AddReviewForm(): JSX.Element {
         <div className="rating__stars">
           {
             items.map((it) => (
-              <React.Fragment key={10 - it}>
-                <input className="rating__input" onChange={() => setFormData({...formData, rating: 10 - it})} value={formData.rating} id={`${10 - it}`} type="radio" name="rating" />
-                <label className="rating__label" htmlFor={`${10 - it}`}>Rating {10 - it} </label>
+              <React.Fragment key={it + 1}>
+                <input className="rating__input" onChange={() => setFormData({...formData, rating: it + 1})} value={formData.rating} id={`star-${it + 1}`} type="radio" name="rating" />
+                <label className="rating__label" htmlFor={`star-${it + 1}`}>Rating {it + 1} </label>
               </React.Fragment>))
           }
         </div>
       </div>
 
       <div className="add-review__text">
-        <textarea className="add-review__textarea" onChange={textChangeHandler} value={formData.reviewText} name="review-text" id="review-text" placeholder="Review text">
+        <textarea className="add-review__textarea" onChange={handleTextChange} value={formData.reviewText} name="review-text" id="review-text" placeholder="Review text">
         </textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>
