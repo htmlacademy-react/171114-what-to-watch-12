@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { filmsCards } from './mocks/film-info';
+import { FILM_COUNT_PER_STEP } from './const';
+
+const renderedfilmsCards = filmsCards.slice(0, FILM_COUNT_PER_STEP);
 
 const filmInfo = {
-  title: 'The Grand Budapest Hotel',
+  name: 'The Grand Budapest Hotel',
   genre: 'Drama',
   year:  2014,
+  id: 1,
 };
 
 const root = ReactDOM.createRoot(
@@ -14,6 +19,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App title={filmInfo.title} genre={filmInfo.genre} year={filmInfo.year} />
+    <App promoFilmInfo={filmInfo} films={renderedfilmsCards} />
   </React.StrictMode>,
 );
+

@@ -1,7 +1,7 @@
 import { PromoFilmProps } from '../../types/film-info';
 import Header from '../../components/header/header';
 
-function PromoFilm({title, genre, year}: PromoFilmProps): JSX.Element {
+function PromoFilm({name, genre, year, id}: PromoFilmProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -17,7 +17,7 @@ function PromoFilm({title, genre, year}: PromoFilmProps): JSX.Element {
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">{title}</h2>
+            <h2 className="film-card__title">{name}</h2>
             <p className="film-card__meta">
               <span className="film-card__genre">{genre}</span>
               <span className="film-card__year">{year}</span>
