@@ -7,11 +7,15 @@ import Header from '../../components/header/header';
 import LikeThis from '../../components/like-this/like-this';
 import Footer from '../../components/footer/footer';
 import Overview from '../../components/overview/overview';
+import Details from '../../components/details/details';
+import Reviews from '../../components/reviews/reviews';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { films, filmsCards } from '../../mocks/film-info';
+import { films, filmsCards, reviews } from '../../mocks/film-info';
 
 
 const filmLikeThis = filmsCards.slice(0, 4);
+// eslint-disable-next-line no-console
+console.log(reviews);
 
 function Film(): JSX.Element {
   const params = useParams();
@@ -84,16 +88,9 @@ function Film(): JSX.Element {
                     </li>
                   </ul>
                 </nav>
-                {
-                  params.tab === 'overview'
-                }
-                <Overview
-                  rating={film.rating}
-                  scoresCount={film.scoresCount}
-                  description={film.description}
-                  director={film.description}
-                  starring={film.starring}
-                />
+                { params.tab === 'overview' ? <Overview rating={film.rating} scoresCount={film.scoresCount} description={film.description} director={film.description} starring={film.starring} /> : '' }
+                { params.tab === 'details' ? <Details director={film.description} starring={film.starring} runTime={film.runTime} genre={film.genre} released={film.released}/> : '' }
+                { params.tab === 'reviews' ? <Reviews reviews={reviews}/> : '' }
               </div>
             </div>
           </div>
