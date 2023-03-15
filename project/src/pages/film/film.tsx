@@ -6,8 +6,10 @@ import { NavLink } from 'react-router-dom';
 import Header from '../../components/header/header';
 import LikeThis from '../../components/like-this/like-this';
 import Footer from '../../components/footer/footer';
+import Overview from '../../components/overview/overview';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { films, filmsCards } from '../../mocks/film-info';
+
 
 const filmLikeThis = filmsCards.slice(0, 4);
 
@@ -72,32 +74,26 @@ function Film(): JSX.Element {
                 <nav className="film-nav film-card__nav">
                   <ul className="film-nav__list">
                     <li className="film-nav__item film-nav__item--active">
-                      <NavLink to="/" className="film-nav__link">Overview</NavLink>
+                      <NavLink to={`/films/${film.id}/overview`} id='overview' className="film-nav__link">Overview</NavLink>
                     </li>
                     <li className="film-nav__item">
-                      <NavLink to="/" className="film-nav__link">Details</NavLink>
+                      <NavLink to={`/films/${film.id}/details`} className="film-nav__link">Details</NavLink>
                     </li>
                     <li className="film-nav__item">
-                      <NavLink to="/" className="film-nav__link">Reviews</NavLink>
+                      <NavLink to={`/films/${film.id}/reviews`} className="film-nav__link">Reviews</NavLink>
                     </li>
                   </ul>
                 </nav>
-
-                <div className="film-rating">
-                  <div className="film-rating__score">{film.rating}</div>
-                  <p className="film-rating__meta">
-                    <span className="film-rating__level">Very good</span>
-                    <span className="film-rating__count">{film.scoresCount} ratings</span>
-                  </p>
-                </div>
-
-                <div className="film-card__text">
-                  <p>{film.description}</p>
-
-                  <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-                  <p className="film-card__starring"><strong>Starring: {film.starring.join(', ')} and other</strong></p>
-                </div>
+                {
+                  params.tab === 'overview'
+                }
+                <Overview
+                  rating={film.rating}
+                  scoresCount={film.scoresCount}
+                  description={film.description}
+                  director={film.description}
+                  starring={film.starring}
+                />
               </div>
             </div>
           </div>
