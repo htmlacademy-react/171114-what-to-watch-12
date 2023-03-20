@@ -576,8 +576,8 @@ export const films = [
   }
 ];
 
-export const filmsCards = Array.from(films, (film) => {const name = film.name; const previewImage = film.previewImage; const id = film.id;
-  return({name, previewImage, id});});
+export const filmsCards = Array.from(films, (film) => {const name = film.name; const previewImage = film.previewImage; const previewVideoLink = film.previewVideoLink; const id = film.id;
+  return({name, previewImage, previewVideoLink, id});});
 
 export const reviews = [
   {

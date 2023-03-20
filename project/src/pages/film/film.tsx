@@ -55,6 +55,17 @@ function Film(): JSX.Element {
         );
     }
   };
+
+  const setActiveTab = (tab: string): string => {
+    if(params.tab === undefined && tab === NameOfTabs.OverviewTab ) {
+      return 'film-nav__item film-nav__item--active';
+    }
+    if(params.tab === tab ) {
+      return 'film-nav__item film-nav__item--active';
+    }
+    return 'film-nav__item';
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -107,13 +118,13 @@ function Film(): JSX.Element {
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <NavLink to={`/films/${film.id}/overview`} id='overview' className="film-nav__link">Overview</NavLink>
+                  <li className={setActiveTab('overview')}>
+                    <NavLink to={`/films/${film.id}/overview`} className="film-nav__link">Overview</NavLink>
                   </li>
-                  <li className="film-nav__item">
+                  <li className={setActiveTab('details')}>
                     <NavLink to={`/films/${film.id}/details`} className="film-nav__link">Details</NavLink>
                   </li>
-                  <li className="film-nav__item">
+                  <li className={setActiveTab('reviews')}>
                     <NavLink to={`/films/${film.id}/reviews`} className="film-nav__link">Reviews</NavLink>
                   </li>
                 </ul>

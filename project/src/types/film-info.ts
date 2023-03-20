@@ -19,6 +19,7 @@ export type ReviewsProps = ReviewProps[];
 export type Film = {
   name: string;
   previewImage: string;
+  previewVideoLink: string;
   id: number;
 };
 
