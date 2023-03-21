@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Film } from '../../types/film-info';
 import cls from './film-card.module.css';
-import CardToggle from './elements/card-toggle';
+import CardPlayer from './elements/card-player';
+import CardPoster from './elements/card-poster';
 
 export type FilmCardProps = Film & {
   activeFilm: number | null;
   onSetActiveFilm: (id: number | null) => void;
 };
+
+const TIME_OUT_DELAY = 1000;
 
 function FilmCard({
   name,
@@ -16,6 +19,17 @@ function FilmCard({
   previewVideoLink,
   onSetActiveFilm
 }: FilmCardProps): JSX.Element {
+  const toggleCard = (): JSX.Element => {
+    if(activeFilm === null) {
+      return < CardPoster name={name} previewImage={previewImage} id={id}/>;
+    }
+    if(activeFilm === id) {
+      setTimeout(() => {activeFilm = id;}, TIME_OUT_DELAY);
+      return < CardPlayer previewVideoLink={previewVideoLink} previewImage={previewImage} name={name} id={id} activeFilm={activeFilm}/>;
+    }
+    return < CardPoster name={name} previewImage={previewImage} id={id}/>;
+  };
+
   return (
     <article
       className="small-film-card catalog__films-card"
@@ -26,13 +40,7 @@ function FilmCard({
         to={`/films/${id}/`}
         className={cls.wrapper}
       >
-        <CardToggle
-          name={name}
-          previewImage={previewImage}
-          previewVideoLink={previewVideoLink}
-          id={id}
-          activeFilm={activeFilm}
-        />
+        {activeFilm ? toggleCard() : < CardPoster name={name} previewImage={previewImage} id={id}/> }
       </Link>
     </article>
   );
