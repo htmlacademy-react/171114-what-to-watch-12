@@ -7,8 +7,7 @@ const CardPlayer = ({
   previewImage,
   name,
   id,
-  activeFilm,
-}: Omit<FilmCardProps, 'onSetActiveFilm'>) => {
+}: Omit<FilmCardProps, 'onSetActiveFilm' | 'activeFilm'>) => {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {

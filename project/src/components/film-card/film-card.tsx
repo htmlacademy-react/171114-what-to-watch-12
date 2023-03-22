@@ -5,10 +5,7 @@ import CardPlayer from './elements/card-player';
 import CardPoster from './elements/card-poster';
 import { useState } from 'react';
 
-export type FilmCardProps = Film & {
-  activeFilm: number | null;
-  onSetActiveFilm: (id: number | null) => void;
-};
+export type FilmCardProps = Film;
 
 const TIME_OUT_DELAY = 1000;
 
@@ -16,9 +13,7 @@ function FilmCard({
   name,
   previewImage,
   id,
-  activeFilm,
   previewVideoLink,
-  onSetActiveFilm,
 }: FilmCardProps): JSX.Element {
   const [isVideoPlaying, setVideoPlaying] = useState(false);
 
@@ -41,7 +36,6 @@ function FilmCard({
           previewImage={previewImage}
           name={name}
           id={id}
-          activeFilm={activeFilm}
         />
       );
     }

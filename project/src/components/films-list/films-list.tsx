@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import FilmCard from '../film-card/film-card';
 import { Films } from '../../types/film-info';
 
@@ -8,8 +7,6 @@ type FilmsListProps = {
 };
 
 function FilmsList({films}: FilmsListProps): JSX.Element {
-  const [activeFilm, setActiveFilm] = useState<number | null>(null);
-
   return (
     <div className="catalog__films-list">
       {films.map((film) => (
@@ -18,9 +15,7 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
             name={film.name}
             previewImage={film.previewImage}
             id={film.id}
-            activeFilm={activeFilm}
             previewVideoLink={film.previewVideoLink}
-            onSetActiveFilm={setActiveFilm}
           />
         </React.Fragment>
       ))}
