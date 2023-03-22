@@ -20,7 +20,7 @@ function FilmsList({films}: FilmsListProps): JSX.Element {
             id={film.id}
             activeFilm={activeFilm}
             previewVideoLink={film.previewVideoLink}
-            onSetActiveFilm={() => setActiveFilm(film.id)}
+            onSetActiveFilm={setActiveFilm}
           />
         </React.Fragment>
       ))}

@@ -1,39 +1,36 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import {FilmCardProps} from '../film-card';
+import { FilmCardProps } from '../film-card';
 
-const CardPlayer = ({previewVideoLink, previewImage, name, id, activeFilm}: Omit<FilmCardProps, 'onSetActiveFilm'>) => (
-  activeFilm === id
-    ?
+const CardPlayer = ({
+  previewVideoLink,
+  previewImage,
+  name,
+  id,
+  activeFilm,
+}: Omit<FilmCardProps, 'onSetActiveFilm'>) => {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.play();
+    }
+  }, []);
+
+  return (
     <React.Fragment>
-      <div className="small-film-card__image" >
-        <video
-          poster={previewImage}
-          autoPlay
-          width="280"
-          height="175"
-        >
-          <source src={previewVideoLink}/>
+      <div className="small-film-card__image">
+        <video poster={previewImage} muted width="280" ref={ref} height="175">
+          <source src={previewVideoLink} />
         </video>
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/${id}/`} className="small-film-card__link">{name}</Link>
+        <Link to={`/films/${id}/`} className="small-film-card__link">
+          {name}
+        </Link>
       </h3>
     </React.Fragment>
-    :
-    <React.Fragment>
-      <div className="small-film-card__image">
-        <img
-          alt={name}
-          src={previewImage}
-          width="280"
-          height="175"
-        />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link to={`/films/${id}/`} className="small-film-card__link">{name}</Link>
-      </h3>
-    </React.Fragment>
-);
+  );
+};
 
 export default CardPlayer;
