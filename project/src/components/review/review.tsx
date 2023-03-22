@@ -1,9 +1,5 @@
-import dayjs from 'dayjs';
 import { ReviewProps } from '../../types/film-info';
-
-const REVIEW_DATE_FORMAT = 'MMMM D, YYYY';
-const getReviewDate = (date: string) => date ? dayjs(date).format(REVIEW_DATE_FORMAT) : '';
-
+import { getReviewDate } from '../../utils';
 
 function Review({id, comment, userName, userId, date, rating}: ReviewProps): JSX.Element {
   return (

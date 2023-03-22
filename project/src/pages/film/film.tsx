@@ -11,14 +11,9 @@ import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { films, filmsCards, reviews } from '../../mocks/film-info';
+import { NameOfTabs } from '../../const';
 
 const filmLikeThis = filmsCards.slice(0, 4);
-
-enum NameOfTabs {
-  ReviewsTab = 'reviews',
-  DetailsTab = 'details',
-  OverviewTab = 'overview'
-}
 
 function Film(): JSX.Element {
   const params = useParams();

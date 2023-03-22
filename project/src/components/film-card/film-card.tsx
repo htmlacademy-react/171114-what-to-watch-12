@@ -1,13 +1,12 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Film } from '../../types/film-info';
 import cls from './film-card.module.css';
 import CardPlayer from './elements/card-player';
 import CardPoster from './elements/card-poster';
-import { useState } from 'react';
+import { TIME_OUT_DELAY } from '../../const';
 
 export type FilmCardProps = Film;
-
-const TIME_OUT_DELAY = 1000;
 
 function FilmCard({
   name,

@@ -1,4 +1,5 @@
-const getRunTime = (duration: number) => `${Math.round(duration / 60)}h ${duration % 60}m`;
+import React from 'react';
+import { getRunTime } from '../../utils';
 
 type DetailsProps = {
   director: string;
@@ -18,12 +19,13 @@ function Details({director, starring, runTime, genre, released}: DetailsProps): 
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          <span className="film-card__details-value">
-            {starring.map((star) => `${star}`)}
-          </span>
+          {starring.map((star) => (
+            <span key={star} className="film-card__details-value">
+              {star}, <br/>
+            </span>
+          ))}
         </p>
       </div>
-
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>

@@ -1,48 +1,5 @@
 import React from 'react';
-
-const FilmRatingLevel = {
-  BAD: {
-    rating: 'Bad',
-    max: 3,
-  },
-  NORMAL: {
-    rating: 'Normal',
-    max: 5,
-  },
-  GOOD: {
-    rating: 'Good',
-    max: 8,
-  },
-  VERY_GOOD: {
-    rating: 'Very good',
-    max: 10,
-  },
-  AWENSOME: {
-    rating: 'Awesome',
-    max: 10,
-  },
-};
-
-const getUserRating = (filmRating: number): string => {
-
-  if (filmRating < FilmRatingLevel.BAD.max) {
-    return FilmRatingLevel.BAD.rating;
-  }
-
-  if (filmRating < FilmRatingLevel.NORMAL.max) {
-    return FilmRatingLevel.NORMAL.rating;
-  }
-
-  if (filmRating < FilmRatingLevel.GOOD.max) {
-    return FilmRatingLevel.GOOD.rating;
-  }
-
-  if (filmRating < FilmRatingLevel.VERY_GOOD.max) {
-    return FilmRatingLevel.VERY_GOOD.rating;
-  }
-
-  return FilmRatingLevel.AWENSOME.rating;
-};
+import { getUserRating } from '../../utils';
 
 type OverviewProps = {
   rating: number;
