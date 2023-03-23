@@ -576,6 +576,56 @@ export const films = [
   }
 ];
 
-export const filmsCards = Array.from(films, (film) => {const name = film.name; const previewImage = film.previewImage; const id = film.id;
-  return({name, previewImage, id});});
+export const filmsCards = Array.from(films, (film) => {const name = film.name; const previewImage = film.previewImage; const previewVideoLink = film.previewVideoLink; const id = film.id;
+  return({name, previewImage, previewVideoLink, id});});
 
+export const reviews = [
+  {
+    id: 1,
+    userId: 12,
+    userName: 'Isaac',
+    rating: 1.8,
+    comment: 'The editing is a mess, and the transitions of the plot or characters are rather strange. There is no narrative focus and the storytelling is unbalanced. I cannot really understand why such a bad movie received an overwhelming approval from the critics. ',
+    date: '2023-03-08T07:31:25.015Z'
+  },
+  {
+    id: 2,
+    userId: 12,
+    userName: 'Isaac',
+    rating: 7.1,
+    comment: 'Unfortunately we dont have a reliable way to tell the true ratings of a movie.',
+    date: '2023-02-11T07:31:25.015Z'
+  },
+  {
+    id: 3,
+    userId: 12,
+    userName: 'Isaac',
+    rating: 2.1,
+    comment: 'I personally found this movie to be boring. Definitely one of the most boring movies Ive ever seen.',
+    date: '2023-03-04T07:31:25.015Z'
+  },
+  {
+    id: 4,
+    userId: 12,
+    userName: 'Isaac',
+    rating: 1.8,
+    comment: 'The editing is a mess, and the transitions of the plot or characters are rather strange. There is no narrative focus and the storytelling is unbalanced. I cannot really understand why such a bad movie received an overwhelming approval from the critics. ',
+    date: '2023-03-08T07:31:25.015Z'
+  },
+  {
+    id: 5,
+    userId: 12,
+    userName: 'Isaac',
+    rating: 7.1,
+    comment: 'Unfortunately we dont have a reliable way to tell the true ratings of a movie.',
+    date: '2023-02-11T07:31:25.015Z'
+  },
+  {
+    id: 6,
+    userId: 12,
+    userName: 'Isaac',
+    rating: 2.1,
+    comment: 'I personally found this movie to be boring. Definitely one of the most boring movies Ive ever seen.',
+    date: '2023-03-04T07:31:25.015Z'
+  }
+];

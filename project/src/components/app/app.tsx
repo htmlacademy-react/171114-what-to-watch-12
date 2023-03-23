@@ -42,6 +42,10 @@ function App({promoFilmInfo, films}: AppScreenProps): JSX.Element {
               element={<Film />}
             />
             <Route
+              path={AppRoute.FilmTab}
+              element={<Film />}
+            />
+            <Route
               path={AppRoute.SignIn}
               element={<SignIn />}
             />
