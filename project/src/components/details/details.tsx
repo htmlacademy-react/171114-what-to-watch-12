@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import { getRunTime } from '../../utils';
 
 type DetailsProps = {
@@ -19,11 +19,18 @@ function Details({director, starring, runTime, genre, released}: DetailsProps): 
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
-          {starring.map((star) => (
-            <span key={star} className="film-card__details-value">
-              {star}, <br/>
-            </span>
-          ))}
+          <span className="film-card__details-value">
+            {starring.map((item, index, arr) => {
+              const keyValue = `${index} - ${item}`;
+              return (
+                < Fragment key={keyValue}>
+                  {item + ((index !== arr.length - 1) ? ',' : '')}
+                  {(index !== arr.length - 1) && <br/>}
+                </Fragment>
+              );
+            }
+            )}
+          </span>
         </p>
       </div>
       <div className="film-card__text-col">
