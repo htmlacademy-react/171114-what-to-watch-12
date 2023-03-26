@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FilmCardProps } from '../film-card';
+import { FilmCardProps } from '../../../types/film-info';
 
 const CardPoster = ({previewImage, name, id}: Omit<FilmCardProps, 'previewVideoLink' | 'onSetActiveFilm' | 'activeFilm'>) => (
   <>

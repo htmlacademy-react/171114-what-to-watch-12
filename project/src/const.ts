@@ -4,6 +4,7 @@ export enum AppRoute {
   Film = '/films/:id',
   FilmTab = '/films/:id/:tab',
   Main = '/',
+  MainGenre = '/:genre',
   MyList = '/mylist',
   Player = '/player/:id'
 }
@@ -33,6 +34,22 @@ export const Filmratinglevel = {
     rating: 'Awesome',
     max: 10,
   },
+};
+
+export const Genres = {
+  'all': 'All genres',
+  'Comedy': 'Comedies',
+  'Crime': 'Crime',
+  'Documentary': 'Documentary',
+  'Drama': 'Dramas',
+  'Horror': 'Horror',
+  'Kids & Family': 'Kids & Family',
+  'Romance': 'Romance',
+  'Sci-Fi': 'Sci-Fi',
+  'Thriller': 'Thrillers',
+  'Adventure': 'Adventure',
+  'Action': 'Action',
+  'Fantasy': 'Fantasy'
 };
 
 export const FILM_COUNT_PER_STEP = 8;

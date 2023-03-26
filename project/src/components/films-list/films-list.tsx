@@ -1,15 +1,15 @@
 import React from 'react';
 import FilmCard from '../film-card/film-card';
-import { Films } from '../../types/film-info';
+import { FilmCards } from '../../types/film-info';
 
 type FilmsListProps = {
-  films: Films;
+  filmCards: FilmCards;
 };
 
-function FilmsList({films}: FilmsListProps): JSX.Element {
+function FilmsList({filmCards}: FilmsListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
-      {films.map((film) => (
+      {filmCards.map((film) => (
         <React.Fragment key={film.id}>
           <FilmCard
             name={film.name}

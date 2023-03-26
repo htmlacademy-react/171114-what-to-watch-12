@@ -3,13 +3,13 @@ import Header from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
-import { Films } from '../../types/film-info';
+import { FilmCards } from '../../types/film-info';
 
 type MyListProps = {
-  films: Films;
+  filmCards: FilmCards;
 };
 
-function MyList({films}: MyListProps): JSX.Element {
+function MyList({filmCards}: MyListProps): JSX.Element {
   return (
     <React.Fragment>
       <Helmet>
@@ -20,7 +20,7 @@ function MyList({films}: MyListProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmsList films={films}/>
+          <FilmsList filmCards={filmCards}/>
         </section>
         <Footer />
       </div>

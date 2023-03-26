@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { FilmCardProps } from '../film-card';
+import { FilmCardProps } from '../../../types/film-info';
 
 const CardPlayer = ({
   previewVideoLink,
