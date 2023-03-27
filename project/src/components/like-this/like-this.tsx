@@ -10,7 +10,7 @@ function LikeThis({filmCards}: LikeThisProps): JSX.Element {
     <section className="catalog catalog--like-this">
       <h2 className="catalog__title">More like this</h2>
 
-      <FilmsList filmCards={filmCards}/>
+      <FilmsList/>
     </section>
   );
 }

@@ -18,7 +18,7 @@ function Main({filmCards}: MainProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <GenresList />
-        <FilmsList filmCards={filmCards}/>
+        <FilmsList />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>

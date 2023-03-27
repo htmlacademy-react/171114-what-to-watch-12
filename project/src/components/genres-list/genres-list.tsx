@@ -1,44 +1,43 @@
-import { NavLink } from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import { useParams } from 'react-router-dom';
-import { changeGenre } from '../../store/action';
-//import { Genres } from '../../const';
+import { NavLink, useSearchParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { MAX_COUNT_OF_GENRE_LIST } from '../../const';
 
 function GenresList(): JSX.Element {
   const films = useAppSelector((state) => state.films);
-  const dispatch = useAppDispatch();
-  const params = useParams();
-  const genres: string[] = ['all'];
-  films.forEach((film) => {
-    if(!genres.includes(film.genre)) {
-      genres.push(film.genre);
-    }
-  });
 
-  const setActiveGenre = (genre: string): string => {
-    if(params.genre === undefined && genre === 'all') {
-      return 'catalog__genres-item catalog__genres-item--active';
-    }
-    if(params.genre === genre ) {
-      return 'catalog__genres-item catalog__genres-item--active';
-    }
-    return 'catalog__genres-item';
-  };
+  const [searchParams] = useSearchParams();
 
-  if(params.genre !== undefined) {
-    const genre = params.genre;
-    dispatch(changeGenre({genre}));
+  const genres = films.map((it) => it.genre);
+  const uniqueGenres = ['All genres', ...new Set(genres)];
+
+  if(uniqueGenres.length > MAX_COUNT_OF_GENRE_LIST) {
+    uniqueGenres.slice(0, MAX_COUNT_OF_GENRE_LIST);
   }
 
+  const setActiveGenre = (genre: string): string => {
+    if(!searchParams.has('genre')) {
+      return(genre === 'All genres'
+        ? 'catalog__genres-item catalog__genres-item--active'
+        : 'catalog__genres-item');
+    }
+    return(searchParams.get('genre') === genre
+      ? 'catalog__genres-item catalog__genres-item--active'
+      : 'catalog__genres-item');
+  };
+
   return (
-    <ul className="catalog__genres-list">
-      {genres.map((genre) => (
-        <li className={setActiveGenre(genre)} key={genre}>
-          <NavLink to={`/${genre}/`} className="catalog__genres-link">{genre}</NavLink>
+    <ul className='catalog__genres-list'>
+      {uniqueGenres.map((genre) => (
+        <li
+          className={setActiveGenre(genre)}
+          key={genre}
+        >
+          <NavLink to={`?genre=${genre}`} className='catalog__genres-link'>
+            {genre}
+          </NavLink>
         </li>
       ))}
     </ul>
-
   );
 }
 

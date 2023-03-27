@@ -34,15 +34,6 @@ function App({promoFilmInfo, filmCards}: AppScreenProps): JSX.Element {
               }
             />
             <Route
-              path={AppRoute.MainGenre}
-              element={
-                <section>
-                  <PromoFilm name={promoFilmInfo.name} genre={promoFilmInfo.genre} year={promoFilmInfo.year} id={promoFilmInfo.id}/>
-                  <Main filmCards={filmCards} />
-                </section>
-              }
-            />
-            <Route
               path={AppRoute.AddReview}
               element={<AddReview />}
             />

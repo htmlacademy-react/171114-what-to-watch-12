@@ -4,7 +4,6 @@ export enum AppRoute {
   Film = '/films/:id',
   FilmTab = '/films/:id/:tab',
   Main = '/',
-  MainGenre = '/:genre',
   MyList = '/mylist',
   Player = '/player/:id'
 }
@@ -55,3 +54,4 @@ export const Genres = {
 export const FILM_COUNT_PER_STEP = 8;
 export const TIME_OUT_DELAY = 1000;
 export const REVIEW_DATE_FORMAT = 'MMMM D, YYYY';
+export const MAX_COUNT_OF_GENRE_LIST = 9;

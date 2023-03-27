@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FilmCardProps } from '../../../types/film-info';
 
-const CardPoster = ({previewImage, name, id}: Omit<FilmCardProps, 'previewVideoLink' | 'onSetActiveFilm' | 'activeFilm'>) => (
+const CardPoster = ({previewImage, name, id}: Omit<FilmCardProps, 'previewVideoLink' | 'onSetActiveFilm' | 'activeFilm' | 'genre'>) => (
   <>
     <div className="small-film-card__image">
       <img

@@ -20,7 +20,7 @@ function MyList({filmCards}: MyListProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmsList filmCards={filmCards}/>
+          <FilmsList />
         </section>
         <Footer />
       </div>
