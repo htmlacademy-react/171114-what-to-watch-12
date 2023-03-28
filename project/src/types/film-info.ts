@@ -21,7 +21,6 @@ export type FilmCardProps = {
   previewImage: string;
   previewVideoLink: string;
   id: number;
-  genre: string;
 };
 
 export type FilmCards = FilmCardProps[];

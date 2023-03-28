@@ -1,14 +1,30 @@
 import { Helmet } from 'react-helmet-async';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useState, useEffect } from 'react';
 import FilmsList from '../../components/films-list/films-list';
 import GenresList from '../../components/genres-list/genres-list';
+import ShowMore from '../../components/show-more/show-more';
 import Footer from '../../components/footer/footer';
-import { FilmCards } from '../../types/film-info';
+import { renderedFilmsInc } from '../../store/action';
 
-type MainProps = {
-  filmCards: FilmCards;
-};
+function Main(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const filmsCount = useAppSelector((state) => state.filmsCount);
+  const renderedFilmsCount = useAppSelector((state) => state.renderedFilmsCount);
+  const [isShowMore, setIsShowMore] = useState(true);
+  const handleClick = () => {
+    dispatch(renderedFilmsInc());
+  };
 
-function Main({filmCards}: MainProps): JSX.Element {
+  useEffect(() => {
+    if (filmsCount > renderedFilmsCount) {
+      setIsShowMore(true);
+      return;
+    }
+    setIsShowMore(false);
+
+  }, [renderedFilmsCount, filmsCount]);
+
   return (
     <div className="page-content">
       <Helmet>
@@ -20,9 +36,7 @@ function Main({filmCards}: MainProps): JSX.Element {
         <GenresList />
         <FilmsList />
 
-        <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
-        </div>
+        {isShowMore && <ShowMore handleClick={handleClick}/>}
       </section>
 
       <Footer />

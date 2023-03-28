@@ -29,7 +29,7 @@ function App({promoFilmInfo, filmCards}: AppScreenProps): JSX.Element {
               element={
                 <section>
                   <PromoFilm name={promoFilmInfo.name} genre={promoFilmInfo.genre} year={promoFilmInfo.year} id={promoFilmInfo.id}/>
-                  <Main filmCards={filmCards} />
+                  <Main />
                 </section>
               }
             />

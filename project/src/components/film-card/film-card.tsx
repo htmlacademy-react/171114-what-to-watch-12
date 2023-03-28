@@ -10,8 +10,7 @@ function FilmCard({
   name,
   previewImage,
   id,
-  previewVideoLink,
-  genre
+  previewVideoLink
 }: FilmCardProps): JSX.Element {
   const [isVideoPlaying, setVideoPlaying] = useState(false);
 
