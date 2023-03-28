@@ -8,28 +8,20 @@ function GenresList(): JSX.Element {
   const [searchParams] = useSearchParams();
 
   const genres = films.map((it) => it.genre);
-  const uniqueGenres = ['All genres', ...new Set(genres)];
+  const uniqueGenres = ['All genres', ...new Set(genres)].slice(0, MAX_COUNT_OF_GENRE_LIST);
 
-  if(uniqueGenres.length > MAX_COUNT_OF_GENRE_LIST) {
-    uniqueGenres.slice(0, MAX_COUNT_OF_GENRE_LIST);
-  }
-
-  const setActiveGenre = (genre: string): string => {
-    if(!searchParams.has('genre')) {
-      return(genre === 'All genres'
-        ? 'catalog__genres-item catalog__genres-item--active'
-        : 'catalog__genres-item');
-    }
-    return(searchParams.get('genre') === genre
-      ? 'catalog__genres-item catalog__genres-item--active'
-      : 'catalog__genres-item');
+  const getActiveGenreClassName = (genre: string): string => {
+    const genreFromURL = searchParams.has('genre');
+    if( (! genreFromURL && genre === 'All genres') || searchParams.get('genre') === genre) {
+      return 'catalog__genres-item catalog__genres-item--active';}
+    return 'catalog__genres-item';
   };
 
   return (
     <ul className='catalog__genres-list'>
       {uniqueGenres.map((genre) => (
         <li
-          className={setActiveGenre(genre)}
+          className={getActiveGenreClassName(genre)}
           key={genre}
         >
           <NavLink to={`?genre=${genre}`} className='catalog__genres-link'>

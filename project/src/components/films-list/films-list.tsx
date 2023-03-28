@@ -6,33 +6,21 @@ import { FILM_COUNT_PER_STEP } from '../../const';
 
 function FilmsList(): JSX.Element {
   const films = useAppSelector((state) => state.films);
-  const filmCards = Array.from(films, (film) => {const name = film.name; const previewImage = film.previewImage; const previewVideoLink = film.previewVideoLink; const id = film.id; const genre = film.genre;
-    return({name, previewImage, previewVideoLink, id, genre});});
   const [searchParams] = useSearchParams();
-  const genre = searchParams.get('genre');
-  const [currentGenre, setCurrentGenre] = useState('All genres');
+  const [filmsFitered, setFilmsFitered] = useState(films);
 
   useEffect(() => {
-    if(currentGenre !== genre && genre !== null) {
-      setCurrentGenre(genre);
+    if(searchParams.get('genre') === null || searchParams.get('genre') === 'All genres') {
+      setFilmsFitered(films.slice(0, FILM_COUNT_PER_STEP));
+      return;
     }
-  }, [genre, currentGenre]);
+    setFilmsFitered(films.filter((film) => film.genre === searchParams.get('genre')).slice(0, FILM_COUNT_PER_STEP));
 
-  let filmCardsFilter = [...filmCards];
-
-  if(currentGenre !== null || currentGenre !== 'All genres') {
-    filmCardsFilter = filmCards.filter((film) => film.genre === currentGenre).slice(0, FILM_COUNT_PER_STEP);
-  }
-  if(currentGenre === 'All genres') {
-    filmCardsFilter = filmCards.slice(0, FILM_COUNT_PER_STEP);
-  }
-  if(currentGenre === null) {
-    filmCardsFilter = filmCards.slice(0, FILM_COUNT_PER_STEP);
-  }
+  }, [films, searchParams]);
 
   return (
     <div className="catalog__films-list">
-      { filmCardsFilter.map((film) => (
+      { filmsFitered.map((film) => (
         <React.Fragment key={film.id}>
           <FilmCard
             name={film.name}
