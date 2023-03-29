@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { FilmCardProps } from '../film-card';
+import { FilmCardProps } from '../../../types/film-info';
 
 const CardPlayer = ({
   previewVideoLink,
   previewImage,
   name,
   id,
-}: Omit<FilmCardProps, 'onSetActiveFilm' | 'activeFilm'>) => {
+}: Omit<FilmCardProps, 'onSetActiveFilm' | 'activeFilm' | 'genre'>) => {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {

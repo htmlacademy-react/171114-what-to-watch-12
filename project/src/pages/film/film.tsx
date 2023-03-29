@@ -131,7 +131,7 @@ function Film(): JSX.Element {
       </section>
 
       <div className="page-content">
-        <LikeThis films={filmLikeThis}/>
+        <LikeThis filmCards={filmLikeThis}/>
         <Footer />
       </div>
     </React.Fragment>

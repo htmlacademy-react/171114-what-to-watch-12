@@ -21,11 +21,11 @@ function Details({director, starring, runTime, genre, released}: DetailsProps): 
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
             {starring.map((item, index, arr) => {
-              const keyValue = `${index} - ${item}`;
+              const keyValue = item;
               return (
                 < Fragment key={keyValue}>
-                  {item + ((index !== arr.length - 1) ? ',' : '')}
-                  {(index !== arr.length - 1) && <br/>}
+                  {item + ((index < arr.length - 1) ? ',' : '')}
+                  {(index < arr.length - 1) && <br/>}
                 </Fragment>
               );
             }

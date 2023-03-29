@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Film } from '../../types/film-info';
+import { FilmCardProps } from '../../types/film-info';
 import cls from './film-card.module.css';
 import CardPlayer from './elements/card-player';
 import CardPoster from './elements/card-poster';
 import { TIME_OUT_DELAY } from '../../const';
-
-export type FilmCardProps = Film;
 
 function FilmCard({
   name,
   previewImage,
   id,
   previewVideoLink,
+  genre
 }: FilmCardProps): JSX.Element {
   const [isVideoPlaying, setVideoPlaying] = useState(false);
 
