@@ -53,7 +53,7 @@ function App({promoFilmInfo, filmCards}: AppScreenProps): JSX.Element {
               path={AppRoute.MyList}
               element={
                 <PrivateRoute>
-                  <MyList filmCards={filmCards} />
+                  <MyList />
                 </PrivateRoute>
               }
             />
