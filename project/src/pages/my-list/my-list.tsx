@@ -3,13 +3,10 @@ import Header from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
-import { FilmCards } from '../../types/film-info';
+import { useAppSelector } from '../../hooks';
 
-type MyListProps = {
-  filmCards: FilmCards;
-};
-
-function MyList({filmCards}: MyListProps): JSX.Element {
+function MyList(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   return (
     <React.Fragment>
       <Helmet>
@@ -20,7 +17,7 @@ function MyList({filmCards}: MyListProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmsList />
+          <FilmsList filmsFiltered={films.slice(0, 4)}/>
         </section>
         <Footer />
       </div>
