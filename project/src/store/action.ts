@@ -5,5 +5,7 @@ import {AuthorizationStatus} from '../const';
 export const renderedFilmsInc = createAction('renderedFilmsInc');
 export const renderedFilmsReset = createAction('renderedFilmsReset');
 export const filmsCountSet = createAction<{filmsCount: number}>('filmCountSet');
-export const loadFilms = createAction<Films>('data/loadFilms');
+export const loadFilms = createAction<Films>('loadFilms');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+export const setFilmsDataLoadingStatus = createAction<boolean>('data/setFilmsDataLoadingStatus');
+export const setError = createAction<string | null>('setError');

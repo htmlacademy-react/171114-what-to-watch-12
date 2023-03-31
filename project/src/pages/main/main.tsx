@@ -16,7 +16,6 @@ function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const filmsCount = useAppSelector((state) => state.filmsCount);
   const films = useAppSelector((state) => state.films);
-
   const [filmsFiltered, setFilmsFiltered] = useState(films);
 
   const renderedFilmsCount = useAppSelector(

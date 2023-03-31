@@ -1,6 +1,7 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../../const';
+import {useAppSelector} from '../../hooks';
+import { AppRoute, AuthorizationStatus,} from '../../const';
 import Main from '../../pages/main/main';
 import AddReview from '../../pages/add-review/add-review';
 import Film from '../../pages/film/film';
@@ -11,14 +12,22 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PromoFilm from '../promo-film/promo-film';
 import PrivateRoute from '../../components/private-route/private-route';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
-import { PromoFilmProps, FilmCards } from '../../types/film-info';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { PromoFilmProps} from '../../types/film-info';
 
 type AppScreenProps = {
   promoFilmInfo: PromoFilmProps;
-  filmCards: FilmCards;
 }
 
-function App({promoFilmInfo, filmCards}: AppScreenProps): JSX.Element {
+function App({promoFilmInfo}: AppScreenProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isFilmsDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -52,7 +61,7 @@ function App({promoFilmInfo, filmCards}: AppScreenProps): JSX.Element {
             <Route
               path={AppRoute.MyList}
               element={
-                <PrivateRoute>
+                <PrivateRoute authorizationStatus={authorizationStatus}>
                   <MyList />
                 </PrivateRoute>
               }

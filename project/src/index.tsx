@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { filmsCards } from './mocks/film-info';
+import ErrorMessage from './components/error-message/error-message';
 import {store} from './store';
-import { FILM_COUNT_PER_STEP } from './const';
+import {fetchFilmAction, checkAuthAction} from './store/api-actions';
 
-const renderedfilmsCards = filmsCards.slice(0, FILM_COUNT_PER_STEP);
+store.dispatch(fetchFilmAction());
+store.dispatch(checkAuthAction());
 
 const filmInfo = {
   name: 'The Grand Budapest Hotel',
@@ -22,7 +23,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App promoFilmInfo={filmInfo} filmCards={renderedfilmsCards}/>
+      <ErrorMessage />
+      <App promoFilmInfo={filmInfo} />
     </Provider>
   </React.StrictMode>,
 );
