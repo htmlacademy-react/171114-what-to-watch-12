@@ -1,20 +1,17 @@
-import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import UserBlock from './elements/user-block';
+import LogIn from './elements/log-in';
+import { useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
 
 function Header(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   return (
     <header className="page-header film-card__head">
       <Logo />
-      <ul className="user-block">
-        <li className="user-block__item">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
-        </li>
-        <li className="user-block__item">
-          <Link to="/login" className="user-block__link">Sign out</Link>
-        </li>
-      </ul>
+      {(authorizationStatus === AuthorizationStatus.Unknown || authorizationStatus === AuthorizationStatus.NoAuth)
+        ? <LogIn/>
+        : <UserBlock/>}
     </header>
   );
 }

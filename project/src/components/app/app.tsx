@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import {useAppSelector} from '../../hooks';
 import { AppRoute, AuthorizationStatus,} from '../../const';
@@ -9,17 +9,13 @@ import MyList from '../../pages/my-list/my-list';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import PromoFilm from '../promo-film/promo-film';
 import PrivateRoute from '../../components/private-route/private-route';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import { PromoFilmProps} from '../../types/film-info';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
-type AppScreenProps = {
-  promoFilmInfo: PromoFilmProps;
-}
-
-function App({promoFilmInfo}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
 
@@ -30,17 +26,12 @@ function App({promoFilmInfo}: AppScreenProps): JSX.Element {
   }
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <ScrollToTop>
           <Routes>
             <Route
               path={AppRoute.Main}
-              element={
-                <section>
-                  <PromoFilm name={promoFilmInfo.name} genre={promoFilmInfo.genre} year={promoFilmInfo.year} id={promoFilmInfo.id}/>
-                  <Main />
-                </section>
-              }
+              element={<Main />}
             />
             <Route
               path={AppRoute.AddReview}
@@ -76,7 +67,7 @@ function App({promoFilmInfo}: AppScreenProps): JSX.Element {
             />
           </Routes>
         </ScrollToTop>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

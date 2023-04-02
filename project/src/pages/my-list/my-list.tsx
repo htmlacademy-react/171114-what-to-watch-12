@@ -1,6 +1,7 @@
 import React from 'react';
-import Header from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
+import Logo from '../../components/logo/logo';
+import UserBlock from '../../components/header/elements/user-block';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
@@ -13,11 +14,15 @@ function MyList(): JSX.Element {
         <title>What to watch. My list</title>
       </Helmet>
       <div className="user-page">
-        <Header/>
+        <header className="page-header user-page__head">
+          <Logo />
+          <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
+          <UserBlock/>
+        </header>
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmsList filmsFiltered={films.slice(0, 4)}/>
+          <FilmsList filmsFiltered={films.slice(0, 9)}/>
         </section>
         <Footer />
       </div>
