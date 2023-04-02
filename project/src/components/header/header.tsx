@@ -9,7 +9,7 @@ function Header(): JSX.Element {
   return (
     <header className="page-header film-card__head">
       <Logo />
-      {(authorizationStatus === AuthorizationStatus.Unknown)
+      {(authorizationStatus === AuthorizationStatus.Unknown || authorizationStatus === AuthorizationStatus.NoAuth)
         ? <LogIn/>
         : <UserBlock/>}
     </header>

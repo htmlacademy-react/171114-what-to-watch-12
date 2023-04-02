@@ -1,7 +1,7 @@
-import {useRef, FormEvent} from 'react';
-import {useAppDispatch} from '../../hooks';
-import {loginAction} from '../../store/api-actions';
-import {AuthData} from '../../types/auth-data';
+import { useRef, FormEvent } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
+import { AuthData } from '../../types/auth-data';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 
