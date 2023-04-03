@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import ErrorMessage from './components/error-message/error-message';
 import { store } from './store';
-import { fetchFilmAction, checkAuthAction } from './store/api-actions';
+import { fetchFilmsAction, checkAuthAction } from './store/api-actions';
 
-store.dispatch(fetchFilmAction());
+store.dispatch(fetchFilmsAction());
 store.dispatch(checkAuthAction());
 
 

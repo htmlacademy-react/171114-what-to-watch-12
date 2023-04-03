@@ -23,7 +23,7 @@ export const clearErrorAction = createAsyncThunk(
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<void, undefined, {
+export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -31,7 +31,21 @@ export const fetchFilmAction = createAsyncThunk<void, undefined, {
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setFilmsDataLoadingStatus(true));
-    const {data} = await api.get<Films>(APIRoute.Films);
+    const {data} = await api.get<Films>(APIRoute.Film);
+    dispatch(setFilmsDataLoadingStatus(false));
+    dispatch(loadFilms(data));
+  },
+);
+
+export const fetchFilmAction = createAsyncThunk<void, {url: string}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFilm',
+  async ({url: url}, {dispatch, extra: api}) => {
+    dispatch(setFilmsDataLoadingStatus(true));
+    const {data} = await api.get<Films>(APIRoute.Film, {url});
     dispatch(setFilmsDataLoadingStatus(false));
     dispatch(loadFilms(data));
   },
