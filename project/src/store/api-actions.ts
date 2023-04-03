@@ -1,8 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
-import { Films } from '../types/film-info';
+import { Films, Film } from '../types/film-info';
 import { loadFilms,
+  loadFilm,
   requireAuthorization,
   setFilmsDataLoadingStatus,
   redirectToRoute,
@@ -45,9 +46,8 @@ export const fetchFilmAction = createAsyncThunk<void, {url: string}, {
   'data/fetchFilm',
   async ({url: url}, {dispatch, extra: api}) => {
     dispatch(setFilmsDataLoadingStatus(true));
-    const {data} = await api.get<Films>(APIRoute.Film, {url});
-    dispatch(setFilmsDataLoadingStatus(false));
-    dispatch(loadFilms(data));
+    const {data} = await api.get<Film>(APIRoute.Film, {url});
+    dispatch(loadFilm(data));
   },
 );
 
