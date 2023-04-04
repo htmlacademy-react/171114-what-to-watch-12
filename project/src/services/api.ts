@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
-import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
+import { BACKEND_URL, REQUEST_TIMEOUT, APIRoute } from '../const';
 import { processErrorHandle } from './process-error-handle';
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -32,11 +32,14 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{error: string}>) => {
+    (error: AxiosError<{ error: string; config: AxiosRequestConfig }>) => {
       if (error.response && shouldDisplayError(error.response)) {
+        if (error.config.url === APIRoute.Login &&
+            error.config.method === 'get') {
+          return;
+        }
         processErrorHandle(error.response.data.error);
       }
-
       throw error;
     }
   );

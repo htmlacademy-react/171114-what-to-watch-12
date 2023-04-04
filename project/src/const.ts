@@ -13,6 +13,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 export enum APIRoute {
+  Comments = '/comments',
   Films = '/films',
   Login = '/login',
   Logout = '/logout',
