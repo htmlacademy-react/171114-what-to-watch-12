@@ -18,8 +18,7 @@ function Reviews({reviews}: ReviewsProps): JSX.Element {
             <Review
               id={review.id}
               comment={review.comment}
-              userName={review.userName}
-              userId={review.userId}
+              user={review.user}
               date={review.date}
               rating={review.rating}
             />
@@ -32,8 +31,7 @@ function Reviews({reviews}: ReviewsProps): JSX.Element {
             <Review
               id={review.id}
               comment={review.comment}
-              userName={review.userName}
-              userId={review.userId}
+              user={review.user}
               date={review.date}
               rating={review.rating}
             />

@@ -1,38 +1,46 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import Header from '../../components/header/header';
 import LikeThis from '../../components/like-this/like-this';
+import LikeThisLoading from '../../components/like-this/like-this-loading';
 import Footer from '../../components/footer/footer';
 import Overview from '../../components/overview/overview';
 import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { films, reviews } from '../../mocks/film-info';
-import { NameOfTabs } from '../../const';
-import { fetchFilmAction } from '../../store/api-actions';
+import { NameOfTabs, AuthorizationStatus } from '../../const';
+import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction } from '../../store/api-actions';
 import { store } from '../../store';
 
 function Film(): JSX.Element {
   const params = useParams();
-  const film = films.find((element) => String(element.id) === params.id);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(() => {
     if (params.id) {
       store.dispatch(fetchFilmAction({ id: params.id }));
+      store.dispatch(fetchFilmsSimilarAction({ id: params.id }));
+      store.dispatch(fetchCommentsAction({ id: params.id }));
     }
   }, [params.id]);
 
-  if (!params.id || !film) {
+  const film = useAppSelector((state) => state.film);
+  const isFilmsSimilarDataLoading = useAppSelector((state) => state.isFilmsSimilarDataLoading);
+  const reviews = useAppSelector((state) => state.comments);
+  const isCommentsDataLoading = useAppSelector((state) => state.isCommentsDataLoading);
+
+  if (!params.id || !film ) {
     return <NotFoundScreen />;
   }
 
   const renderTabs = () => {
     switch (params.tab) {
       case NameOfTabs.ReviewsTab:
-        return <Reviews reviews={reviews}/>;
+        return isCommentsDataLoading ? <LikeThisLoading/> : <Reviews reviews={reviews}/>;
       case NameOfTabs.DetailsTab:
         return (
           <Details
@@ -103,8 +111,8 @@ function Film(): JSX.Element {
                   <span>My list</span>
                   <span className='film-card__count'>9</span>
                 </button>
+                {(authorizationStatus === AuthorizationStatus.Auth) && <Link to={`/films/${film.id}/add-review`} className='btn film-card__button'>Add review</Link>}
 
-                <Link to={`/films/${film.id}/add-review`} className='btn film-card__button'>Add review</Link>
               </div>
             </div>
           </div>
@@ -137,7 +145,7 @@ function Film(): JSX.Element {
       </section>
 
       <div className='page-content'>
-        <LikeThis/>
+        {isFilmsSimilarDataLoading ? <LikeThisLoading/> : <LikeThis/>}
         <Footer />
       </div>
     </React.Fragment>

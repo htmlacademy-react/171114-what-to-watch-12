@@ -7,8 +7,10 @@ export type PromoFilmProps = {
 
 export type ReviewProps = {
   id: number;
-  userId: number;
-  userName: string;
+  user: {
+    id: number;
+    name: string;
+  };
   rating: number;
   comment: string;
   date: string;

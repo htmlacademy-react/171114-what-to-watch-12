@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import {useAppSelector} from '../../hooks';
-import { AppRoute, AuthorizationStatus,} from '../../const';
+import { AppRoute } from '../../const';
 import Main from '../../pages/main/main';
 import AddReview from '../../pages/add-review/add-review';
 import Film from '../../pages/film/film';
@@ -19,11 +19,6 @@ function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isFilmsDataLoading) {
-    return (
-      <LoadingScreen />
-    );
-  }
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -31,7 +26,9 @@ function App(): JSX.Element {
           <Routes>
             <Route
               path={AppRoute.Main}
-              element={<Main />}
+              element={isFilmsDataLoading
+                ? <LoadingScreen />
+                : <Main />}
             />
             <Route
               path={AppRoute.AddReview}
@@ -43,7 +40,9 @@ function App(): JSX.Element {
             />
             <Route
               path={AppRoute.FilmTab}
-              element={<Film />}
+              element={isFilmsDataLoading
+                ? <LoadingScreen />
+                : <Film />}
             />
             <Route
               path={AppRoute.SignIn}
