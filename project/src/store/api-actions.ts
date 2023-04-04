@@ -12,7 +12,7 @@ import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
-import {store} from './';
+import { store } from './';
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
@@ -32,24 +32,26 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setFilmsDataLoadingStatus(true));
-    const {data} = await api.get<Films>(APIRoute.Film);
+    const {data} = await api.get<Films>(APIRoute.Films);
     dispatch(setFilmsDataLoadingStatus(false));
     dispatch(loadFilms(data));
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<void, {url: string}, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/fetchFilm',
-  async ({url: url}, {dispatch, extra: api}) => {
-    dispatch(setFilmsDataLoadingStatus(true));
-    const {data} = await api.get<Film>(APIRoute.Film, {url});
-    dispatch(loadFilm(data));
-  },
-);
+export const fetchFilmAction = createAsyncThunk<void, { id: string }, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('data/fetchFilm', async ({ id }, { dispatch, extra: api }) => {
+    try {
+      dispatch(setFilmsDataLoadingStatus(true));
+
+      const { data } = await api.get<Film>(`${APIRoute.Films}/${id}`);
+      dispatch(loadFilm(data));
+    } finally {
+      dispatch(setFilmsDataLoadingStatus(false));
+    }
+  });
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
