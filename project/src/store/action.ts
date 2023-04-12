@@ -13,5 +13,4 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const setFilmsDataLoadingStatus = createAction<boolean>('data/setFilmsDataLoadingStatus');
 export const setFilmsSimilarDataLoadingStatus = createAction<boolean>('data/setFilmsSimilarDataLoadingStatus');
 export const setCommentsDataLoadingStatus = createAction<boolean>('data/setCommentsDataLoadingStatus');
-export const setError = createAction<string | null>('setError');
 export const redirectToRoute = createAction<AppRoute>('redirectToRoute');

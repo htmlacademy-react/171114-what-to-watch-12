@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { films } from '../../mocks/film-info';
 
 function Player(): JSX.Element {
   const params = useParams();
+  const films = useAppSelector((state) => state.films);
   const film = films.find((element) => element.id.toString() === params.id);
   if(params.id === undefined || !film) {
     return (

@@ -10,8 +10,7 @@ import {
   loadComments,
   setFilmsDataLoadingStatus,
   setFilmsSimilarDataLoadingStatus,
-  setCommentsDataLoadingStatus,
-  setError } from './action';
+  setCommentsDataLoadingStatus } from './action';
 import { Films, Film, ReviewsProps } from '../types/film-info';
 import { FILM_COUNT_PER_STEP, AuthorizationStatus } from '../const';
 
@@ -26,7 +25,6 @@ type InitalState = {
   isFilmsDataLoading: boolean;
   isFilmsSimilarDataLoading: boolean;
   isCommentsDataLoading: boolean;
-  error: string | null;
 }
 
 const inisialState: InitalState = {
@@ -40,7 +38,6 @@ const inisialState: InitalState = {
   isFilmsDataLoading: false,
   isFilmsSimilarDataLoading: false,
   isCommentsDataLoading: false,
-  error: null,
 };
 
 const reducer = createReducer(inisialState, (builder) => {
@@ -81,9 +78,6 @@ const reducer = createReducer(inisialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     });
 });
 

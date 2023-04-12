@@ -1,12 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 import FilmCardHeader from '../../components/film-card-header/film-card-header';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { films } from '../../mocks/film-info';
 
 function AddReview(): JSX.Element {
   const params = useParams();
+  const films = useAppSelector((state) => state.films);
   const film = films.find((element) => element.id.toString() === params.id);
   if(params.id === undefined || !film) {
     return (
