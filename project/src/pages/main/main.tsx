@@ -1,8 +1,7 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useCallback } from 'react';
-import { getFilteredFilms } from '../../store/selectors';
+import { getFilteredFilms } from '../../store/films-process/selectors';
 import PromoFilm from '../../components/promo-film/promo-film';
 import FilmsList from '../../components/films-list/films-list';
 import GenresList from '../../components/genres-list/genres-list';
@@ -13,10 +12,9 @@ import {
   renderedFilmsInc,
   renderedFilmsReset,
   setGenre
-} from '../../store/action';
+} from '../../store/films-process/films-process';
 import { useSearchParams } from 'react-router-dom';
-import { Films } from '../../types/film-info';
-
+import { getFilmsCount, getFilms, getRenderedFilmsCount } from '../../store/films-process/selectors';
 
 const filmInfo = {
   name: 'The Grand Budapest Hotel',
@@ -27,13 +25,10 @@ const filmInfo = {
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const filmsCount = useAppSelector((state) => state.filmsCount);
-  const films = useAppSelector((state) => state.films);
-  const filteredFilms = getFilteredFilms();
-
-  const renderedFilmsCount = useAppSelector(
-    (state) => state.renderedFilmsCount
-  );
+  const filmsCount = useAppSelector(getFilmsCount);
+  const films = useAppSelector(getFilms);
+  const filteredFilms = useAppSelector(getFilteredFilms);
+  const renderedFilmsCount = useAppSelector(getRenderedFilmsCount);
   const [searchParams] = useSearchParams();
   useEffect(() => {
     setGenre(searchParams.get('genre'));
@@ -45,7 +40,7 @@ function Main(): JSX.Element {
   );
 
   useEffect(() => {
-    dispatch(filmsCountSet({ filmsCount: filteredFilms.length }));
+    dispatch(filmsCountSet(filteredFilms.length));
   }, [dispatch, filteredFilms]);
 
   useEffect(() => () => {

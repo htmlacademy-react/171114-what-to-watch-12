@@ -63,7 +63,7 @@ export const Genres = {
 };
 
 export enum NameSpace {
-  Data = 'DATA',
+  Film = 'FILM',
   Films = 'FILMS',
   User = 'USER',
 }

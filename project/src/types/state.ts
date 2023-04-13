@@ -6,20 +6,21 @@ export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
 };
 
-export type LoadData = {
-  films: Films;
+export type FilmProcess = {
   film: Film | null;
-  filmsSimilar: Films;
   comments: ReviewsProps;
-  isFilmsDataLoading: boolean;
-  isFilmsSimilarDataLoading: boolean;
+  isFilmDataLoading: boolean;
   isCommentsDataLoading: boolean;
 }
 
 export type FilmsProcess = {
+  films: Films;
+  filmsSimilar: Films;
   renderedFilmsCount: number;
   filmsCount: number;
   genre: string | null;
+  isFilmsDataLoading: boolean;
+  isFilmsSimilarDataLoading: boolean;
 }
 
 export type State = ReturnType<typeof store.getState>;

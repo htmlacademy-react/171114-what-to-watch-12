@@ -1,22 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { isAnswerCorrect } from '../../game';
 import { NameSpace, FILM_COUNT_PER_STEP } from '../../const';
 import { FilmsProcess } from '../../types/state';
-import { Question, UserAnswer } from '../../types/question';
+import { fetchFilmsAction, fetchFilmsSimilarAction } from '../api-actions';
 
 const initialState: FilmsProcess = {
+  films: [],
   filmsCount: 0,
   renderedFilmsCount: 0,
   genre: 'All genres',
+  filmsSimilar: [],
+  isFilmsDataLoading: false,
+  isFilmsSimilarDataLoading: false,
 };
 
-const STEP_COUNT = 1;
-
-export const gameProcess = createSlice({
+export const filmsProcess = createSlice({
   name: NameSpace.Films,
   initialState,
   reducers: {
-    renderedFilmsInc, (state) => {
+    renderedFilmsInc: (state) => {
       const filmCount = state.films.length;
       const newRenderedFilmsCount = Math.min(filmCount, state.renderedFilmsCount + FILM_COUNT_PER_STEP);
       state.renderedFilmsCount = newRenderedFilmsCount;
@@ -24,11 +25,38 @@ export const gameProcess = createSlice({
     renderedFilmsReset: (state) => {
       state.renderedFilmsCount = Math.min(state.films.length, FILM_COUNT_PER_STEP);
     },
-    resetGame: (state) => {
-      state.mistakes = 0;
-      state.step = FIRST_GAME_STEP;
+    filmsCountSet: (state, action: PayloadAction<number>) => {
+      state.filmsCount = action.payload;
+    },
+    setGenre: (state, action: PayloadAction<string | null>) => {
+      state.genre = action.payload;
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchFilmsAction.pending, (state) => {
+        state.isFilmsDataLoading = true;
+      })
+      .addCase(fetchFilmsAction.fulfilled, (state, action) => {
+        state.films = action.payload;
+        state.isFilmsDataLoading = false;
+        state.filmsCount = state.films.length;
+        state.renderedFilmsCount = Math.min(state.films.length, FILM_COUNT_PER_STEP);
+      })
+      .addCase(fetchFilmsAction.rejected, (state) => {
+        state.isFilmsDataLoading = false;
+      })
+      .addCase(fetchFilmsSimilarAction.pending, (state) => {
+        state.isFilmsSimilarDataLoading = true;
+      })
+      .addCase(fetchFilmsSimilarAction.fulfilled, (state, action) => {
+        state.filmsSimilar = action.payload;
+        state.isFilmsSimilarDataLoading = false;
+      })
+      .addCase(fetchFilmsSimilarAction.rejected, (state) => {
+        state.isFilmsSimilarDataLoading = false;
+      });
+  }
 });
 
-export const {incrementStep, checkUserAnswer, resetGame} = gameProcess.actions;
+export const { renderedFilmsInc, renderedFilmsReset, filmsCountSet, setGenre } = filmsProcess.actions;
