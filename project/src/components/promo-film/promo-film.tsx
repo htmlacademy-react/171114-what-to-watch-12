@@ -1,3 +1,4 @@
+import React from 'react';
 import { PromoFilmProps } from '../../types/film-info';
 import Header from '../../components/header/header';
 
@@ -44,4 +45,4 @@ function PromoFilm({name, genre, year, id}: PromoFilmProps): JSX.Element {
     </section>
   );
 }
-export default PromoFilm;
+export default React.memo(PromoFilm);

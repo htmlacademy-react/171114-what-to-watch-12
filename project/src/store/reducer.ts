@@ -3,8 +3,8 @@ import {
   renderedFilmsInc,
   renderedFilmsReset,
   filmsCountSet,
-  requireAuthorization,
   loadFilms,
+  setGenre,
   loadFilm,
   loadFilmsSimilar,
   loadComments,
@@ -12,16 +12,16 @@ import {
   setFilmsSimilarDataLoadingStatus,
   setCommentsDataLoadingStatus } from './action';
 import { Films, Film, ReviewsProps } from '../types/film-info';
-import { FILM_COUNT_PER_STEP, AuthorizationStatus } from '../const';
+import { FILM_COUNT_PER_STEP } from '../const';
 
 type InitalState = {
   renderedFilmsCount: number;
   filmsCount: number;
+  genre: string | null;
   films: Films;
   film: Film | null;
   filmsSimilar: Films;
   comments: ReviewsProps;
-  authorizationStatus: AuthorizationStatus;
   isFilmsDataLoading: boolean;
   isFilmsSimilarDataLoading: boolean;
   isCommentsDataLoading: boolean;
@@ -30,11 +30,11 @@ type InitalState = {
 const inisialState: InitalState = {
   films: [],
   film: null,
+  genre: 'All genres',
   filmsSimilar: [],
   comments: [],
   renderedFilmsCount: 0,
   filmsCount: 0,
-  authorizationStatus: AuthorizationStatus.Unknown,
   isFilmsDataLoading: false,
   isFilmsSimilarDataLoading: false,
   isCommentsDataLoading: false,
@@ -53,16 +53,8 @@ const reducer = createReducer(inisialState, (builder) => {
     .addCase(filmsCountSet, (state, action) => {
       state.filmsCount = action.payload.filmsCount;
     })
-    .addCase(loadFilms, (state, action) => {
-      state.films = action.payload;
-      state.filmsCount = state.films.length;
-      state.renderedFilmsCount = Math.min(state.films.length, FILM_COUNT_PER_STEP);
-    })
-    .addCase(loadFilm, (state, action) => {
-      state.film = action.payload;
-    })
-    .addCase(loadFilmsSimilar, (state, action) => {
-      state.filmsSimilar = action.payload;
+    .addCase(setGenre, (state, action) => {
+      state.genre = action.payload;
     })
     .addCase(loadComments, (state, action) => {
       state.comments = action.payload;
@@ -75,9 +67,6 @@ const reducer = createReducer(inisialState, (builder) => {
     })
     .addCase(setCommentsDataLoadingStatus, (state, action) => {
       state.isCommentsDataLoading = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     });
 });
 

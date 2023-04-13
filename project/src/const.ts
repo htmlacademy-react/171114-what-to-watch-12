@@ -62,6 +62,12 @@ export const Genres = {
   'Fantasy': 'Fantasy'
 };
 
+export enum NameSpace {
+  Data = 'DATA',
+  Films = 'FILMS',
+  User = 'USER',
+}
+
 export const FILM_COUNT_PER_STEP = 8;
 export const TIME_OUT_DELAY = 1000;
 export const REVIEW_DATE_FORMAT = 'MMMM D, YYYY';

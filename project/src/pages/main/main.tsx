@@ -1,7 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useState, useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+import { getFilteredFilms } from '../../store/selectors';
 import PromoFilm from '../../components/promo-film/promo-film';
 import FilmsList from '../../components/films-list/films-list';
 import GenresList from '../../components/genres-list/genres-list';
@@ -11,8 +12,10 @@ import {
   filmsCountSet,
   renderedFilmsInc,
   renderedFilmsReset,
+  setGenre
 } from '../../store/action';
 import { useSearchParams } from 'react-router-dom';
+import { Films } from '../../types/film-info';
 
 
 const filmInfo = {
@@ -26,31 +29,24 @@ function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const filmsCount = useAppSelector((state) => state.filmsCount);
   const films = useAppSelector((state) => state.films);
-  const [filmsFiltered, setFilmsFiltered] = useState(films);
+  const filteredFilms = getFilteredFilms();
 
   const renderedFilmsCount = useAppSelector(
     (state) => state.renderedFilmsCount
   );
-
   const [searchParams] = useSearchParams();
+  useEffect(() => {
+    setGenre(searchParams.get('genre'));
+  }, [searchParams]);
+
+  const handleClick = useCallback(
+    () => dispatch(renderedFilmsInc()),
+    [dispatch]
+  );
 
   useEffect(() => {
-    if (searchParams.get('genre') === null || searchParams.get('genre') === 'All genres')
-    {
-      setFilmsFiltered(films);
-    } else {
-      setFilmsFiltered(
-        films.filter((film) => film.genre === searchParams.get('genre')));
-    }
-  }, [films, searchParams, dispatch]);
-
-  const handleClick = () => {
-    dispatch(renderedFilmsInc());
-  };
-
-  useEffect(() => {
-    dispatch(filmsCountSet({ filmsCount: filmsFiltered.length }));
-  }, [filmsFiltered, dispatch]);
+    dispatch(filmsCountSet({ filmsCount: filteredFilms.length }));
+  }, [dispatch, filteredFilms]);
 
   useEffect(() => () => {
     dispatch(renderedFilmsReset());
@@ -65,8 +61,8 @@ function Main(): JSX.Element {
       <div className='page-content'>
         <section className='catalog'>
           <h2 className='catalog__title visually-hidden'>Catalog</h2>
-          <GenresList />
-          <FilmsList filmsFiltered={filmsFiltered.slice(0, renderedFilmsCount)} />
+          <GenresList films={films} genre={searchParams.get('genre')}/>
+          <FilmsList filmsFiltered={filteredFilms.slice(0, renderedFilmsCount)} />
           {filmsCount > renderedFilmsCount && (<ShowMore handleClick={handleClick} />)}
         </section>
         <Footer />

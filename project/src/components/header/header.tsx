@@ -1,3 +1,4 @@
+import React from 'react';
 import Logo from '../../components/logo/logo';
 import UserBlock from './elements/user-block';
 import LogIn from './elements/log-in';
@@ -15,4 +16,4 @@ function Header(): JSX.Element {
     </header>
   );
 }
-export default Header;
+export default React.memo(Header);

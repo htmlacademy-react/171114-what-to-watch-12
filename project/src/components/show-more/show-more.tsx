@@ -1,3 +1,5 @@
+import React from 'react';
+
 type ShowMoreProps = {
   handleClick: () => void;
 };
@@ -15,4 +17,4 @@ function ShowMore({ handleClick }: ShowMoreProps): JSX.Element {
   );
 }
 
-export default ShowMore;
+export default React.memo(ShowMore);

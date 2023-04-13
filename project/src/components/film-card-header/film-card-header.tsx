@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
@@ -49,6 +50,6 @@ function FilmCardHeader({backgroundImage, name, id, posterImage}: FilmCardHeader
     </div>
   );
 }
-export default FilmCardHeader;
+export default React.memo(FilmCardHeader);
 
 
