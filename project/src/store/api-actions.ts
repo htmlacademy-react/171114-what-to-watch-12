@@ -30,6 +30,15 @@ export const fetchFilmAction = createAsyncThunk<Film, { id: string }, {
     return data;
   });
 
+export const fetchPromoFilmAction = createAsyncThunk<Film, undefined, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('data/fetchPromoFilm', async (_arg, { dispatch, extra: api }) => {
+    const { data } = await api.get<Film>(APIRoute.Promo);
+    return data;
+  });
+
 export const fetchFilmsSimilarAction = createAsyncThunk<Films, { id: string }, {
   dispatch: AppDispatch;
   state: State;
@@ -45,6 +54,15 @@ export const fetchCommentsAction = createAsyncThunk<ReviewsProps, { id: string }
   extra: AxiosInstance;
 }>('data/fetchComments', async ({ id }, { dispatch, extra: api }) => {
   const { data } = await api.get<ReviewsProps>(`${APIRoute.Comments}/${id}`);
+  return data;
+});
+
+export const fetchMyListAction = createAsyncThunk<Films, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('data/fetchMyList', async (_arg, {dispatch, extra: api}) => {
+  const { data } = await api.get<Films>(APIRoute.MyList);
   return data;
 });
 

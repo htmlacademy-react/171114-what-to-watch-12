@@ -16,10 +16,13 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getFilmsDataLoadingStatus } from '../../store/films-process/selectors';
+import { getFilmDataLoadingStatus } from '../../store/film-process/selectors';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isFilmsDataLoading = useAppSelector(getFilmsDataLoadingStatus);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
+
 
   return (
     <HelmetProvider>
@@ -42,7 +45,7 @@ function App(): JSX.Element {
             />
             <Route
               path={AppRoute.FilmTab}
-              element={isFilmsDataLoading
+              element={isFilmDataLoading
                 ? <LoadingScreen />
                 : <Film />}
             />

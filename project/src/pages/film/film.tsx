@@ -15,10 +15,13 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { NameOfTabs, AuthorizationStatus } from '../../const';
 import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction } from '../../store/api-actions';
 import { store } from '../../store';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFilm, getCommentsDataLoadingStatus, getComments } from '../../store/film-process/selectors';
+import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar } from '../../store/films-process/selectors';
 
 function Film(): JSX.Element {
   const params = useParams();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (params.id) {
@@ -28,10 +31,11 @@ function Film(): JSX.Element {
     }
   }, [params.id]);
 
-  const film = useAppSelector((state) => state.film);
-  const isFilmsSimilarDataLoading = useAppSelector((state) => state.isFilmsSimilarDataLoading);
-  const reviews = useAppSelector((state) => state.comments);
-  const isCommentsDataLoading = useAppSelector((state) => state.isCommentsDataLoading);
+  const film = useAppSelector(getFilm);
+  const isFilmsSimilarDataLoading = useAppSelector(getFilmsSimilarDataLoadingStatus);
+  const reviews = useAppSelector(getComments);
+  const isCommentsDataLoading = useAppSelector(getCommentsDataLoadingStatus);
+  const filmsSimilar = useAppSelector(getFilmsSimilar);
 
   if (!params.id || !film ) {
     return <NotFoundScreen />;
@@ -145,7 +149,7 @@ function Film(): JSX.Element {
       </section>
 
       <div className='page-content'>
-        {isFilmsSimilarDataLoading ? <LikeThisLoading/> : <LikeThis/>}
+        {isFilmsSimilarDataLoading ? <LikeThisLoading/> : <LikeThis films={filmsSimilar}/>}
         <Footer />
       </div>
     </React.Fragment>

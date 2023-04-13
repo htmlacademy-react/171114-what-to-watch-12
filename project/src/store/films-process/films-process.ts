@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace, FILM_COUNT_PER_STEP } from '../../const';
 import { FilmsProcess } from '../../types/state';
-import { fetchFilmsAction, fetchFilmsSimilarAction } from '../api-actions';
+import { fetchFilmsAction,
+  fetchFilmsSimilarAction,
+  fetchMyListAction } from '../api-actions';
 
 const initialState: FilmsProcess = {
   films: [],
@@ -9,8 +11,10 @@ const initialState: FilmsProcess = {
   renderedFilmsCount: 0,
   genre: 'All genres',
   filmsSimilar: [],
+  myList: [],
   isFilmsDataLoading: false,
   isFilmsSimilarDataLoading: false,
+  isMyListLoading: false,
 };
 
 export const filmsProcess = createSlice({
@@ -55,6 +59,16 @@ export const filmsProcess = createSlice({
       })
       .addCase(fetchFilmsSimilarAction.rejected, (state) => {
         state.isFilmsSimilarDataLoading = false;
+      })
+      .addCase(fetchMyListAction.pending, (state) => {
+        state.isMyListLoading = true;
+      })
+      .addCase(fetchMyListAction.fulfilled, (state, action) => {
+        state.myList = action.payload;
+        state.isMyListLoading = false;
+      })
+      .addCase(fetchMyListAction.rejected, (state) => {
+        state.isMyListLoading = false;
       });
   }
 });

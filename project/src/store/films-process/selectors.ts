@@ -10,7 +10,9 @@ export const getFilmsSimilarDataLoadingStatus = (state: State): boolean => state
 export const getFilmsSimilar = (state: State): Films => state[NameSpace.Films].filmsSimilar;
 export const getRenderedFilmsCount = (state: State): number => state[NameSpace.Films].renderedFilmsCount;
 export const getGenre = (state: State): string | null => state[NameSpace.Films].genre;
-export const getFilteredFilms = () => createSelector(
+export const getMyListLoadingStatus = (state: State): boolean => state[NameSpace.Films].isMyListLoading;
+export const getMyList = (state: State): Films => state[NameSpace.Films].myList;
+export const getFilteredFilms = createSelector(
   getFilms,
   getGenre,
   (films, genre) => {

@@ -17,6 +17,8 @@ export enum APIRoute {
   Films = '/films',
   Login = '/login',
   Logout = '/logout',
+  MyList = '/favorite',
+  Promo = '/promo',
 }
 export enum NameOfTabs {
   ReviewsTab = 'reviews',

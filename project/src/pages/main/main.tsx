@@ -16,16 +16,12 @@ import {
 } from '../../store/films-process/films-process';
 import { useSearchParams } from 'react-router-dom';
 import { getFilmsCount, getFilms, getRenderedFilmsCount } from '../../store/films-process/selectors';
-
-const filmInfo = {
-  name: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  year:  2014,
-  id: 1,
-};
+import { getPromo, getPromoLoadingStatus } from '../../store/film-process/selectors';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
+  const filmInfo = useAppSelector(getPromo);
+  const isPromoLoading = useAppSelector(getPromoLoadingStatus);
   const filmsCount = useAppSelector(getFilmsCount);
   const films = useAppSelector(getFilms);
   const filteredFilms = useAppSelector(getFilteredFilms);
@@ -48,12 +44,19 @@ function Main(): JSX.Element {
     dispatch(renderedFilmsReset());
   }, [dispatch]);
 
+  const renderPromo = () => {
+    if(!isPromoLoading && filmInfo) {
+      return <PromoFilm name={filmInfo.name} genre={filmInfo.genre} year={filmInfo.released} id={filmInfo.id}/>;
+    }
+  };
+
   return (
     <React.Fragment>
       <Helmet>
         <title>What to watch. Main page</title>
       </Helmet>
-      <PromoFilm name={filmInfo.name} genre={filmInfo.genre} year={filmInfo.year} id={filmInfo.id}/>
+      {renderPromo()}
+
       <div className='page-content'>
         <section className='catalog'>
           <h2 className='catalog__title visually-hidden'>Catalog</h2>
