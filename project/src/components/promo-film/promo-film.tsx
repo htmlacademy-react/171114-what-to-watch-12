@@ -1,7 +1,13 @@
-import { PromoFilmProps } from '../../types/film-info';
+import React from 'react';
 import Header from '../../components/header/header';
 
-function PromoFilm({name, genre, year, id}: PromoFilmProps): JSX.Element {
+type PromoFilmProps = {
+  name: string;
+  genre: string;
+  released: number;
+};
+
+function PromoFilm({name, genre, released}: PromoFilmProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -20,7 +26,7 @@ function PromoFilm({name, genre, year, id}: PromoFilmProps): JSX.Element {
             <h2 className="film-card__title">{name}</h2>
             <p className="film-card__meta">
               <span className="film-card__genre">{genre}</span>
-              <span className="film-card__year">{year}</span>
+              <span className="film-card__year">{released}</span>
             </p>
 
             <div className="film-card__buttons">
@@ -44,4 +50,4 @@ function PromoFilm({name, genre, year, id}: PromoFilmProps): JSX.Element {
     </section>
   );
 }
-export default PromoFilm;
+export default React.memo(PromoFilm);

@@ -1,13 +1,24 @@
 import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 import FilmCardHeader from '../../components/film-card-header/film-card-header';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { films } from '../../mocks/film-info';
+import { store } from '../../store';
+import { fetchFilmAction } from '../../store/api-actions';
+import { getFilm } from '../../store/film-process/selectors';
 
 function AddReview(): JSX.Element {
   const params = useParams();
-  const film = films.find((element) => element.id.toString() === params.id);
+  useEffect(() => {
+    if (params.id) {
+      store.dispatch(fetchFilmAction({ id: params.id }));
+    }
+  }, [params.id]);
+
+  const film = useAppSelector(getFilm);
+
   if(params.id === undefined || !film) {
     return (
       <NotFoundScreen />

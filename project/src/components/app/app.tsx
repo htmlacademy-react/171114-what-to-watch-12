@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import {useAppSelector} from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
 import Main from '../../pages/main/main';
 import AddReview from '../../pages/add-review/add-review';
@@ -14,10 +14,15 @@ import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getFilmsDataLoadingStatus } from '../../store/films-process/selectors';
+import { getFilmDataLoadingStatus } from '../../store/film-process/selectors';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFilmsDataLoading = useAppSelector(getFilmsDataLoadingStatus);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
+
 
   return (
     <HelmetProvider>
@@ -40,7 +45,7 @@ function App(): JSX.Element {
             />
             <Route
               path={AppRoute.FilmTab}
-              element={isFilmsDataLoading
+              element={isFilmDataLoading
                 ? <LoadingScreen />
                 : <Film />}
             />

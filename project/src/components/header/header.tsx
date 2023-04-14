@@ -1,11 +1,13 @@
+import React from 'react';
 import Logo from '../../components/logo/logo';
 import UserBlock from './elements/user-block';
 import LogIn from './elements/log-in';
 import { useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <header className="page-header film-card__head">
       <Logo />
@@ -15,4 +17,4 @@ function Header(): JSX.Element {
     </header>
   );
 }
-export default Header;
+export default React.memo(Header);
