@@ -12,12 +12,13 @@ import Overview from '../../components/overview/overview';
 import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import MyListButton from '../../components/my-list-button/my-list-button';
 import { NameOfTabs, AuthorizationStatus } from '../../const';
 import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getFilm, getCommentsDataLoadingStatus, getComments } from '../../store/film-process/selectors';
-import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar } from '../../store/films-process/selectors';
+import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar, getMyList } from '../../store/films-process/selectors';
 
 function Film(): JSX.Element {
   const params = useParams();
@@ -36,6 +37,8 @@ function Film(): JSX.Element {
   const reviews = useAppSelector(getComments);
   const isCommentsDataLoading = useAppSelector(getCommentsDataLoadingStatus);
   const filmsSimilar = useAppSelector(getFilmsSimilar);
+  const myFilms = useAppSelector(getMyList);
+  const countOfMyFilms = myFilms.length;
 
   if (!params.id || !film ) {
     return <NotFoundScreen />;
@@ -78,6 +81,12 @@ function Film(): JSX.Element {
     }
     return 'film-nav__item';
   };
+  let isFavorite = false;
+  const handleClick = () => {
+    isFavorite = !isFavorite;
+    // eslint-disable-next-line no-console
+    console.log(isFavorite);
+  };
 
   return (
     <React.Fragment>
@@ -108,13 +117,7 @@ function Film(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className='btn btn--list film-card__button' type='button'>
-                  <svg viewBox='0 0 19 20' width='19' height='20'>
-                    <use xlinkHref='#add'></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className='film-card__count'>9</span>
-                </button>
+                <MyListButton countOfMyFilms={countOfMyFilms} handleClick={handleClick} isFavorite={isFavorite} />
                 {(authorizationStatus === AuthorizationStatus.Auth) && <Link to={`/films/${film.id}/add-review`} className='btn film-card__button'>Add review</Link>}
 
               </div>

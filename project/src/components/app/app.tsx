@@ -14,15 +14,25 @@ import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getFilmsDataLoadingStatus } from '../../store/films-process/selectors';
 import { getFilmDataLoadingStatus } from '../../store/film-process/selectors';
+import { AuthorizationStatus } from '../../const';
+import { fetchMyListAction } from '../../store/api-actions';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isFilmsDataLoading = useAppSelector(getFilmsDataLoadingStatus);
   const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
 
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchMyListAction());
+    }
+  }, [authorizationStatus, dispatch]);
 
   return (
     <HelmetProvider>

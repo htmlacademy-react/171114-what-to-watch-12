@@ -32,8 +32,7 @@ function Main(): JSX.Element {
   const myFilms = useAppSelector(getMyList);
   const [searchParams] = useSearchParams();
   useEffect(() => {
-    setGenre(searchParams.get('genre'));
-    dispatch(renderedFilmsReset());
+    dispatch(setGenre(searchParams.get('genre')));
   }, [searchParams, dispatch]);
 
   const handleClick = useCallback(
@@ -51,7 +50,7 @@ function Main(): JSX.Element {
 
   const renderPromo = () => {
     if(!isPromoLoading && filmInfo) {
-      return <PromoFilm name={filmInfo.name} genre={filmInfo.genre} released={filmInfo.released} countOfMyFilms={myFilms.length} />;
+      return <PromoFilm name={filmInfo.name} genre={filmInfo.genre} released={filmInfo.released} isFavorite={filmInfo.isFavorite} countOfMyFilms={myFilms.length} />;
     }
   };
 

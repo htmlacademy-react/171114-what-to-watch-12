@@ -1,14 +1,21 @@
 import React from 'react';
 import Header from '../../components/header/header';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
 type PromoFilmProps = {
   name: string;
   genre: string;
   released: number;
+  isFavorite: boolean;
   countOfMyFilms: number;
 };
 
-function PromoFilm({name, genre, released, countOfMyFilms}: PromoFilmProps): JSX.Element {
+function PromoFilm({name, genre, released, isFavorite, countOfMyFilms}: PromoFilmProps): JSX.Element {
+  const handleClick = () => {
+    isFavorite = !isFavorite;
+    // eslint-disable-next-line no-console
+    console.log(isFavorite);
+  };
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -37,13 +44,7 @@ function PromoFilm({name, genre, released, countOfMyFilms}: PromoFilmProps): JSX
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-                <span className="film-card__count">{countOfMyFilms}</span>
-              </button>
+              <MyListButton countOfMyFilms={countOfMyFilms} handleClick={handleClick} isFavorite={isFavorite} />
             </div>
           </div>
         </div>
