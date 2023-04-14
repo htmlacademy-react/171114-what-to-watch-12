@@ -5,9 +5,10 @@ type PromoFilmProps = {
   name: string;
   genre: string;
   released: number;
+  countOfMyFilms: number;
 };
 
-function PromoFilm({name, genre, released}: PromoFilmProps): JSX.Element {
+function PromoFilm({name, genre, released, countOfMyFilms}: PromoFilmProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -41,7 +42,7 @@ function PromoFilm({name, genre, released}: PromoFilmProps): JSX.Element {
                   <use xlinkHref="#add"></use>
                 </svg>
                 <span>My list</span>
-                <span className="film-card__count">9</span>
+                <span className="film-card__count">{countOfMyFilms}</span>
               </button>
             </div>
           </div>
