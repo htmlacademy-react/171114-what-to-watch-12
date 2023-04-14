@@ -1,10 +1,3 @@
-export type PromoFilmProps = {
-  name: string;
-  genre: string;
-  year: number;
-  id: number;
-};
-
 export type ReviewProps = {
   id: number;
   user: {

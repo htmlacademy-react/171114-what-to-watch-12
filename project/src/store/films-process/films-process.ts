@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace, FILM_COUNT_PER_STEP } from '../../const';
+import { NameSpace, FILM_COUNT_PER_STEP, DEFAULT_GENRE } from '../../const';
 import { FilmsProcess } from '../../types/state';
 import { fetchFilmsAction,
   fetchFilmsSimilarAction,
@@ -9,7 +9,7 @@ const initialState: FilmsProcess = {
   films: [],
   filmsCount: 0,
   renderedFilmsCount: 0,
-  genre: 'All genres',
+  genre: DEFAULT_GENRE,
   filmsSimilar: [],
   myList: [],
   isFilmsDataLoading: false,

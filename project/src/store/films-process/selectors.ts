@@ -2,6 +2,7 @@ import { NameSpace } from '../../const';
 import { Films } from '../../types/film-info';
 import { State } from '../../types/state';
 import { createSelector } from '@reduxjs/toolkit';
+import { DEFAULT_GENRE } from '../../const';
 
 export const getFilmsCount = (state: State): number => state[NameSpace.Films].filmsCount;
 export const getFilmsDataLoadingStatus = (state: State): boolean => state[NameSpace.Films].isFilmsDataLoading;
@@ -16,7 +17,7 @@ export const getFilteredFilms = createSelector(
   getFilms,
   getGenre,
   (films, genre) => {
-    if (genre === null || genre === 'All genres') {
+    if (genre === null || genre === DEFAULT_GENRE) {
       return films;
     } else {
       return films.filter((film) => film.genre === genre);

@@ -46,7 +46,7 @@ function Main(): JSX.Element {
 
   const renderPromo = () => {
     if(!isPromoLoading && filmInfo) {
-      return <PromoFilm name={filmInfo.name} genre={filmInfo.genre} year={filmInfo.released} id={filmInfo.id}/>;
+      return <PromoFilm name={filmInfo.name} genre={filmInfo.genre} released={filmInfo.released}/>;
     }
   };
 
