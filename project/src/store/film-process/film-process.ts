@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { FilmProcess } from '../../types/state';
 import { fetchFilmAction, fetchCommentsAction, fetchPromoFilmAction } from '../api-actions';
@@ -10,12 +10,16 @@ const initialState: FilmProcess = {
   isFilmDataLoading: false,
   isPromoLoading: false,
   isCommentsDataLoading: false,
+  isPlayerOpen: false,
 };
 
 export const filmProcess = createSlice({
   name: NameSpace.Film,
   initialState,
-  reducers: {},
+  reducers: {
+    setPlayerOpen: (state, action: PayloadAction<boolean>) => {
+      state.isPlayerOpen = action.payload;
+    }},
   extraReducers(builder) {
     builder
       .addCase(fetchFilmAction.pending, (state) => {
@@ -50,3 +54,5 @@ export const filmProcess = createSlice({
       });
   }
 });
+
+export const { setPlayerOpen } = filmProcess.actions;

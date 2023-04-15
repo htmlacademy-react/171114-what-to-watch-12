@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -13,14 +13,20 @@ import Details from '../../components/details/details';
 import Reviews from '../../components/reviews/reviews';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import MyListButton from '../../components/my-list-button/my-list-button';
+import PlayButton from '../../components/play-button/play-button';
 import { NameOfTabs, AuthorizationStatus } from '../../const';
 import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getFilm, getCommentsDataLoadingStatus, getComments } from '../../store/film-process/selectors';
+import { getFilm,
+  getCommentsDataLoadingStatus,
+  getComments,
+  getPlayerOpenStatus } from '../../store/film-process/selectors';
 import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar, getMyList } from '../../store/films-process/selectors';
+import { setPlayerOpen } from '../../store/film-process/film-process';
 
 function Film(): JSX.Element {
+  const dispatch = useAppDispatch();
   const params = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -39,6 +45,7 @@ function Film(): JSX.Element {
   const filmsSimilar = useAppSelector(getFilmsSimilar);
   const myFilms = useAppSelector(getMyList);
   const countOfMyFilms = myFilms.length;
+  const isPlayerOpen = useAppSelector(getPlayerOpenStatus);
 
   if (!params.id || !film ) {
     return <NotFoundScreen />;
@@ -82,10 +89,14 @@ function Film(): JSX.Element {
     return 'film-nav__item';
   };
   let isFavorite = false;
-  const handleClick = () => {
+  const handleMyListClick = () => {
     isFavorite = !isFavorite;
-    // eslint-disable-next-line no-console
-    console.log(isFavorite);
+  };
+  const handlePlayClick = () => {
+    if (!isPlayerOpen) {
+      window.open(`/player/${film.id}`, '_blank', 'top=100, left=100, width=400, height=500');
+      dispatch(setPlayerOpen(true));
+    }
   };
 
   return (
@@ -111,13 +122,8 @@ function Film(): JSX.Element {
               </p>
 
               <div className='film-card__buttons'>
-                <button className='btn btn--play film-card__button' type='button'>
-                  <svg viewBox='0 0 19 19' width='19' height='19'>
-                    <use xlinkHref='#play-s'></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <MyListButton countOfMyFilms={countOfMyFilms} handleClick={handleClick} isFavorite={isFavorite} />
+                <PlayButton handleClick={handlePlayClick} />
+                <MyListButton countOfMyFilms={countOfMyFilms} handleClick={handleMyListClick} isFavorite={isFavorite} />
                 {(authorizationStatus === AuthorizationStatus.Auth) && <Link to={`/films/${film.id}/add-review`} className='btn film-card__button'>Add review</Link>}
 
               </div>

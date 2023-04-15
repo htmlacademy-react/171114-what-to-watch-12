@@ -13,6 +13,7 @@ export type FilmProcess = {
   isFilmDataLoading: boolean;
   isPromoLoading: boolean;
   isCommentsDataLoading: boolean;
+  isPlayerOpen: boolean;
 }
 
 export type FilmsProcess = {
