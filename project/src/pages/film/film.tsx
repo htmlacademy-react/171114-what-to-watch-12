@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -20,13 +20,10 @@ import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getFilm,
   getCommentsDataLoadingStatus,
-  getComments,
-  getPlayerOpenStatus } from '../../store/film-process/selectors';
+  getComments } from '../../store/film-process/selectors';
 import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar, getMyList } from '../../store/films-process/selectors';
-import { setPlayerOpen } from '../../store/film-process/film-process';
 
 function Film(): JSX.Element {
-  const dispatch = useAppDispatch();
   const params = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -45,7 +42,6 @@ function Film(): JSX.Element {
   const filmsSimilar = useAppSelector(getFilmsSimilar);
   const myFilms = useAppSelector(getMyList);
   const countOfMyFilms = myFilms.length;
-  const isPlayerOpen = useAppSelector(getPlayerOpenStatus);
 
   if (!params.id || !film ) {
     return <NotFoundScreen />;
@@ -93,10 +89,7 @@ function Film(): JSX.Element {
     isFavorite = !isFavorite;
   };
   const handlePlayClick = () => {
-    if (!isPlayerOpen) {
-      window.open(`/player/${film.id}`, '_blank', 'top=100, left=100, width=400, height=500');
-      dispatch(setPlayerOpen(true));
-    }
+    window.open(`/player/${film.id}`, '_blank', 'top=100, left=100, width=800, height=1000');
   };
 
   return (

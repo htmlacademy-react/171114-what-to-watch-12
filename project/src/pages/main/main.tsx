@@ -31,6 +31,7 @@ function Main(): JSX.Element {
   const renderedFilmsCount = useAppSelector(getRenderedFilmsCount);
   const myFilms = useAppSelector(getMyList);
   const [searchParams] = useSearchParams();
+
   useEffect(() => {
     dispatch(setGenre(searchParams.get('genre')));
   }, [searchParams, dispatch]);
