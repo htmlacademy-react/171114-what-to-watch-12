@@ -12,7 +12,6 @@ const initialState: FilmProcess = {
   isFilmDataLoading: false,
   isPromoLoading: false,
   isCommentsDataLoading: false,
-  isFavorite: false,
 };
 
 export const filmProcess = createSlice({

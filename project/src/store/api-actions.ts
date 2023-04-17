@@ -9,7 +9,6 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { ReviewData } from '../types/review-data';
 import { isFavoriteData } from '../types/is-favorite-data';
-import { store } from '../store';
 
 export const fetchFilmsAction = createAsyncThunk<Films, undefined, {
   dispatch: AppDispatch;
@@ -118,10 +117,6 @@ export const changeIsFavoriteAction = createAsyncThunk<void, isFavoriteData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>(
-  'film/addReview',
-  async ({id, isFavorite}, {dispatch, extra: api}) => {
-    await api.post<ReviewData>(`${APIRoute.MyList}/${id}`, {isFavorite});
-    store.dispatch(fetchFilmAction({ id: `${id}` }));
-  },
-);
+}>('film/addReview', async ({id, isFavorite}, {extra: api}) => {
+  await api.post<void>(`${APIRoute.MyList}/${id}/${isFavorite}`);
+});

@@ -17,19 +17,16 @@ import {
 import { useSearchParams } from 'react-router-dom';
 import { getFilmsCount,
   getFilms,
-  getRenderedFilmsCount,
-  getMyList } from '../../store/films-process/selectors';
-import { getPromo, getPromoLoadingStatus } from '../../store/film-process/selectors';
+  getRenderedFilmsCount } from '../../store/films-process/selectors';
+import { getPromoLoadingStatus } from '../../store/film-process/selectors';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const filmInfo = useAppSelector(getPromo);
   const isPromoLoading = useAppSelector(getPromoLoadingStatus);
   const filmsCount = useAppSelector(getFilmsCount);
   const films = useAppSelector(getFilms);
   const filteredFilms = useAppSelector(getFilteredFilms);
   const renderedFilmsCount = useAppSelector(getRenderedFilmsCount);
-  const myFilms = useAppSelector(getMyList);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -50,8 +47,8 @@ function Main(): JSX.Element {
   }, [dispatch]);
 
   const renderPromo = () => {
-    if(!isPromoLoading && filmInfo) {
-      return <PromoFilm name={filmInfo.name} genre={filmInfo.genre} released={filmInfo.released} isFavorite={filmInfo.isFavorite} countOfMyFilms={myFilms.length} />;
+    if(!isPromoLoading) {
+      return <PromoFilm />;
     }
   };
 

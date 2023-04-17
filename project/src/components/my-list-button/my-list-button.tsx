@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AuthorizationStatus, AppRoute } from '../../const';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { changeIsFavoriteAction } from '../../store/api-actions';
+import { redirectToRoute } from '../../store/action';
+import { getMyList } from '../../store/films-process/selectors';
 
 type MyListButtonProps = {
-  countOfMyFilms: number;
-  handleClick: () => void;
+  id: number;
   isFavorite: boolean;
 };
 
-function MyListButton({countOfMyFilms, handleClick, isFavorite}: MyListButtonProps): JSX.Element {
+function MyListButton({id, isFavorite}: MyListButtonProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const myFilms = useAppSelector(getMyList);
+  const dispatch = useAppDispatch();
+  const [isCheck, setIsCheck] = useState(isFavorite);
+  const handleClick = () => {
+    if(authorizationStatus === AuthorizationStatus.Auth) {
+      const favoriteData = {
+        id,
+        isFavorite: isCheck ? 0 : 1
+      };
+      dispatch(changeIsFavoriteAction(favoriteData));
+      setIsCheck(!isCheck);
+    } else {
+      dispatch(redirectToRoute(AppRoute.SignIn));
+    }
+  };
   return (
     <button
       className="btn btn--list film-card__button"
@@ -14,7 +35,7 @@ function MyListButton({countOfMyFilms, handleClick, isFavorite}: MyListButtonPro
       onClick={handleClick}
     >
       {
-        isFavorite
+        isCheck
           ?
           <svg viewBox="0 0 19 20" width="19" height="20">
             <use xlinkHref="#in-list"></use>
@@ -24,9 +45,8 @@ function MyListButton({countOfMyFilms, handleClick, isFavorite}: MyListButtonPro
             <use xlinkHref="#add"></use>
           </svg>
       }
-
       <span>My list</span>
-      <span className="film-card__count">{countOfMyFilms}</span>
+      <span className="film-card__count">{myFilms.length}</span>
     </button>
   );
 }

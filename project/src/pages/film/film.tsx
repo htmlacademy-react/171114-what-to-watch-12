@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -15,17 +15,15 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import PlayButton from '../../components/play-button/play-button';
 import { NameOfTabs, AuthorizationStatus } from '../../const';
-import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction, changeIsFavoriteAction } from '../../store/api-actions';
+import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getFilm,
   getCommentsDataLoadingStatus,
-  getComments,
-  getFavoriteStatus } from '../../store/film-process/selectors';
-import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar, getMyList } from '../../store/films-process/selectors';
+  getComments } from '../../store/film-process/selectors';
+import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar } from '../../store/films-process/selectors';
 
 function Film(): JSX.Element {
-  const dispatch = useAppDispatch();
   const params = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -41,11 +39,7 @@ function Film(): JSX.Element {
   const isFilmsSimilarDataLoading = useAppSelector(getFilmsSimilarDataLoadingStatus);
   const reviews = useAppSelector(getComments);
   const isCommentsDataLoading = useAppSelector(getCommentsDataLoadingStatus);
-  const isFavorite = useAppSelector(getFavoriteStatus);
   const filmsSimilar = useAppSelector(getFilmsSimilar);
-  const myFilms = useAppSelector(getMyList);
-  const countOfMyFilms = myFilms.length;
-
   if (!params.id || !film ) {
     return <NotFoundScreen />;
   }
@@ -88,13 +82,6 @@ function Film(): JSX.Element {
     return 'film-nav__item';
   };
 
-  const handleMyListClick = () => {
-    const favoriteData = {
-      id: film.id,
-      isFavorite: !isFavorite
-    };
-    dispatch(changeIsFavoriteAction(favoriteData));
-  };
   const handlePlayClick = () => {
     window.open(`/player/${film.id}`, '_blank', 'top=100, left=100, width=800, height=1000');
   };
@@ -123,7 +110,7 @@ function Film(): JSX.Element {
 
               <div className='film-card__buttons'>
                 <PlayButton handleClick={handlePlayClick} />
-                <MyListButton countOfMyFilms={countOfMyFilms} handleClick={handleMyListClick} isFavorite={isFavorite} />
+                <MyListButton id={film.id} isFavorite={film.isFavorite} />
                 {(authorizationStatus === AuthorizationStatus.Auth) && <Link to={`/films/${film.id}/add-review`} className='btn film-card__button'>Add review</Link>}
 
               </div>
