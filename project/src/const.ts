@@ -65,9 +65,9 @@ export const Genres = {
 };
 
 export enum NameSpace {
-  Film = 'FILM',
-  Films = 'FILMS',
-  User = 'USER',
+  Film = 'film',
+  Films = 'films',
+  User = 'user',
 }
 
 export const FILM_COUNT_PER_STEP = 8;

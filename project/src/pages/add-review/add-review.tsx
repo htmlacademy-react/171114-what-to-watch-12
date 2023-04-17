@@ -31,7 +31,7 @@ function AddReview(): JSX.Element {
         </Helmet>
         <FilmCardHeader backgroundImage={film.backgroundImage} name={film.name} id={film.id} posterImage={film.posterImage}/>
         <div className="add-review">
-          <AddReviewForm />
+          <AddReviewForm id={film.id}/>
         </div>
       </section>
     );

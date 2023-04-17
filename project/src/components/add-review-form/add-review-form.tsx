@@ -1,20 +1,37 @@
-import React from 'react';
-import { useState, ChangeEventHandler } from 'react';
+import React, { FormEvent, useState, ChangeEventHandler } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { addReviewAction } from '../../store/api-actions';
+import { ReviewData } from '../../types/review-data';
 
-function AddReviewForm(): JSX.Element {
+type AddReviewFormProps = { id: number };
+
+function AddReviewForm({id}: AddReviewFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const items = [...Array(10).keys()].reverse();
 
   const [formData, setFormData] = useState({
+    id,
     rating: 0,
-    reviewText: '',
+    comment: '',
   });
 
   const handleTextChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
-    setFormData({...formData, reviewText: event.target.value});
+    setFormData({...formData, comment: event.target.value});
+  };
+
+  const onAnswer = (data: ReviewData) => {
+    dispatch(addReviewAction(data));
   };
 
   return (
-    <form action="#" className="add-review__form">
+    <form
+      action="#"
+      className="add-review__form"
+      onSubmit={(evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+        onAnswer(formData);
+      }}
+    >
       <div className="rating">
         <div className="rating__stars">
           {
@@ -28,7 +45,7 @@ function AddReviewForm(): JSX.Element {
       </div>
 
       <div className="add-review__text">
-        <textarea className="add-review__textarea" onChange={handleTextChange} value={formData.reviewText} name="review-text" id="review-text" placeholder="Review text">
+        <textarea className="add-review__textarea" onChange={handleTextChange} value={formData.comment} name="review-text" id="review-text" placeholder="Review text">
         </textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>

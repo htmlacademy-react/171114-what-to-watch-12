@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { FilmProcess } from '../../types/state';
-import { fetchFilmAction, fetchCommentsAction, fetchPromoFilmAction } from '../api-actions';
+import { fetchFilmAction,
+  fetchCommentsAction,
+  fetchPromoFilmAction } from '../api-actions';
 
 const initialState: FilmProcess = {
   film: null,
@@ -10,6 +12,7 @@ const initialState: FilmProcess = {
   isFilmDataLoading: false,
   isPromoLoading: false,
   isCommentsDataLoading: false,
+  isFavorite: false,
 };
 
 export const filmProcess = createSlice({
