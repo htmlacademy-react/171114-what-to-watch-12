@@ -7,10 +7,9 @@ type PromoCardProps = {
   name: string;
   genre: string;
   released: number;
-  isFavorite: boolean;
 };
 
-function PromoCard({id, name, genre, released, isFavorite}: PromoCardProps): JSX.Element {
+function PromoCard({id, name, genre, released}: PromoCardProps): JSX.Element {
   const handlePlayClick = () => {
     window.open(`/player/${id}`, '_blank', 'top=100, left=100, width=800, height=1000');
   };
@@ -30,7 +29,7 @@ function PromoCard({id, name, genre, released, isFavorite}: PromoCardProps): JSX
 
           <div className="film-card__buttons">
             <PlayButton handleClick={handlePlayClick} />
-            <MyListButton id={id} isFavorite={isFavorite} />
+            <MyListButton id={id} />
           </div>
         </div>
       </div>

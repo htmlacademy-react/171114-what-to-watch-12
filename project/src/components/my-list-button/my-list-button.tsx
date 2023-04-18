@@ -1,29 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { changeIsFavoriteAction } from '../../store/api-actions';
 import { redirectToRoute } from '../../store/action';
 import { getMyList } from '../../store/films-process/selectors';
+import { getFavoriteStatus } from '../../store/film-process/selectors';
 
 type MyListButtonProps = {
   id: number;
-  isFavorite: boolean;
 };
 
-function MyListButton({id, isFavorite}: MyListButtonProps): JSX.Element {
+function MyListButton({id}: MyListButtonProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const myFilms = useAppSelector(getMyList);
+  const isFavorite = useAppSelector(getFavoriteStatus);
   const dispatch = useAppDispatch();
-  const [isCheck, setIsCheck] = useState(isFavorite);
   const handleClick = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {
       const favoriteData = {
         id,
-        isFavorite: isCheck ? 0 : 1
+        isFavorite: isFavorite ? 0 : 1
       };
       dispatch(changeIsFavoriteAction(favoriteData));
-      setIsCheck(!isCheck);
     } else {
       dispatch(redirectToRoute(AppRoute.SignIn));
     }
@@ -35,7 +34,7 @@ function MyListButton({id, isFavorite}: MyListButtonProps): JSX.Element {
       onClick={handleClick}
     >
       {
-        isCheck
+        isFavorite
           ?
           <svg viewBox="0 0 19 20" width="19" height="20">
             <use xlinkHref="#in-list"></use>

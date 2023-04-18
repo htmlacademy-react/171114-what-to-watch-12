@@ -3,7 +3,8 @@ import { NameSpace } from '../../const';
 import { FilmProcess } from '../../types/state';
 import { fetchFilmAction,
   fetchCommentsAction,
-  fetchPromoFilmAction } from '../api-actions';
+  fetchPromoFilmAction,
+  changeIsFavoriteAction } from '../api-actions';
 
 const initialState: FilmProcess = {
   film: null,
@@ -12,6 +13,7 @@ const initialState: FilmProcess = {
   isFilmDataLoading: false,
   isPromoLoading: false,
   isCommentsDataLoading: false,
+  isFavotite: false,
 };
 
 export const filmProcess = createSlice({
@@ -49,6 +51,9 @@ export const filmProcess = createSlice({
       })
       .addCase(fetchPromoFilmAction.rejected, (state) => {
         state.isPromoLoading = false;
+      })
+      .addCase(changeIsFavoriteAction.fulfilled, (state) => {
+        state.isFavotite = !state.isFavotite;
       });
   }
 });

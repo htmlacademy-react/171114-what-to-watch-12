@@ -110,7 +110,7 @@ function Film(): JSX.Element {
 
               <div className='film-card__buttons'>
                 <PlayButton handleClick={handlePlayClick} />
-                <MyListButton id={film.id} isFavorite={film.isFavorite} />
+                <MyListButton id={film.id} />
                 {(authorizationStatus === AuthorizationStatus.Auth) && <Link to={`/films/${film.id}/add-review`} className='btn film-card__button'>Add review</Link>}
 
               </div>

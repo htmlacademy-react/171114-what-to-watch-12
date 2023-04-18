@@ -16,7 +16,7 @@ function PromoFilm(): JSX.Element {
       <h1 className="visually-hidden">WTW</h1>
       < Header />
       {filmInfo
-        ? < PromoCard id={filmInfo.id} name={filmInfo.name} genre={filmInfo.genre} released={filmInfo.released} isFavorite={filmInfo.isFavorite} />
+        ? < PromoCard id={filmInfo.id} name={filmInfo.name} genre={filmInfo.genre} released={filmInfo.released} />
         : < PromoNotFound/>}
     </section>
   );
