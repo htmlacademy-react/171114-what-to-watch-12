@@ -109,7 +109,7 @@ export const addReviewAction = createAsyncThunk<void, ReviewData, {
   'film/addReview',
   async ({id, rating, comment}, {dispatch, extra: api}) => {
     await api.post<ReviewData>(`${APIRoute.Comments}/${id}`, {rating, comment});
-    dispatch(redirectToRoute(AppRoute.Main));
+    dispatch(redirectToRoute(`/films/${id}/reviews` as AppRoute));
   },
 );
 
@@ -117,6 +117,8 @@ export const changeIsFavoriteAction = createAsyncThunk<void, isFavoriteData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>('film/addReview', async ({id, isFavorite}, {extra: api}) => {
-  await api.post<void>(`${APIRoute.MyList}/${id}/${isFavorite}`);
+}>('film/changeIsFavorite', async ({id, isFavorite}, {dispatch, extra: api}) => {
+  await api.post<void>(`${APIRoute.MyList}/${id}/${isFavorite}`).then(() => {
+    dispatch(fetchMyListAction());
+  });
 });

@@ -1,15 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import Spinner from '../../components/spinner/spinner';
 import { fetchFilmAction } from '../../store/api-actions';
 import { getFilm } from '../../store/film-process/selectors';
 import { store } from '../../store';
 import { getTimeLeft } from '../../utils';
+import { redirectToRoute } from '../../store/action';
+import { AppRoute } from '../../const';
 
 function Player(): JSX.Element {
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLVideoElement>(null);
   const params = useParams();
   const film = useAppSelector(getFilm);
@@ -28,7 +31,11 @@ function Player(): JSX.Element {
     setIsLoadedData(true);
   };
   const handleExitClick = () => {
-    window.close();
+    if(film) {
+      dispatch(redirectToRoute(`/films/${film.id}` as AppRoute));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Main));
+    }
   };
   const handlePlayClick = () => {
     if (ref.current) {
@@ -63,7 +70,7 @@ function Player(): JSX.Element {
     return (
       <React.Fragment>
         <video className="player__video"
-          poster={film.previewImage}
+          poster={film.backgroundImage}
           onTimeUpdate={handleTimeUpdate}
           onLoadedData={handleLoadedData}
           ref={ref}

@@ -14,12 +14,22 @@ const initialState: FilmProcess = {
   isPromoLoading: false,
   isCommentsDataLoading: false,
   isFavotite: false,
+  isPromoFavotite: false,
 };
 
 export const filmProcess = createSlice({
   name: NameSpace.Film,
   initialState,
-  reducers: {},
+  reducers: {
+    setFavotite: (state) => {
+      if(state.film) {
+        state.isFavotite = state.film.isFavorite;
+      }
+      if(state.promo) {
+        state.isPromoFavotite = state.promo.isFavorite;
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFilmAction.pending, (state) => {
@@ -52,8 +62,14 @@ export const filmProcess = createSlice({
       .addCase(fetchPromoFilmAction.rejected, (state) => {
         state.isPromoLoading = false;
       })
-      .addCase(changeIsFavoriteAction.fulfilled, (state) => {
-        state.isFavotite = !state.isFavotite;
+      .addCase(changeIsFavoriteAction.fulfilled, (state, action) => {
+        if (state.promo && action.meta.arg.id === state.promo.id) {
+          state.isPromoFavotite = !state.isPromoFavotite;
+        } else {
+          state.isFavotite = !state.isFavotite;
+        }
       });
   }
 });
+
+export const { setFavotite } = filmProcess.actions;

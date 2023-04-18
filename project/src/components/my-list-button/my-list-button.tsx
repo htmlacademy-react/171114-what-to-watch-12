@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { changeIsFavoriteAction } from '../../store/api-actions';
 import { redirectToRoute } from '../../store/action';
 import { getMyList } from '../../store/films-process/selectors';
-import { getFavoriteStatus } from '../../store/film-process/selectors';
+import { setFavotite } from '../../store/film-process/film-process';
 
 type MyListButtonProps = {
   id: number;
+  isFavorite: boolean;
 };
 
-function MyListButton({id}: MyListButtonProps): JSX.Element {
+function MyListButton({id, isFavorite}: MyListButtonProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const myFilms = useAppSelector(getMyList);
-  const isFavorite = useAppSelector(getFavoriteStatus);
   const dispatch = useAppDispatch();
   const handleClick = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {
@@ -27,6 +27,9 @@ function MyListButton({id}: MyListButtonProps): JSX.Element {
       dispatch(redirectToRoute(AppRoute.SignIn));
     }
   };
+  useEffect(() => {
+    dispatch(setFavotite());
+  }, [dispatch]);
   return (
     <button
       className="btn btn--list film-card__button"

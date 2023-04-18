@@ -9,3 +9,4 @@ export const getPromoLoadingStatus = (state: State): boolean => state[NameSpace.
 export const getComments = (state: State): ReviewsProps => state[NameSpace.Film].comments;
 export const getCommentsDataLoadingStatus = (state: State): boolean => state[NameSpace.Film].isCommentsDataLoading;
 export const getFavoriteStatus = (state: State): boolean => state[NameSpace.Film].isFavotite;
+export const getPromoStatus = (state: State): boolean => state[NameSpace.Film].isPromoFavotite;

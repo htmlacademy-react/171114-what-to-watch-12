@@ -1,6 +1,11 @@
 import React from 'react';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
 import MyListButton from '../../../components/my-list-button/my-list-button';
 import PlayButton from '../../../components/play-button/play-button';
+import { getPromoStatus } from '../../../store/film-process/selectors';
+import { redirectToRoute } from '../../../store/action';
+import { AppRoute } from '../../../const';
+import { setFavotite } from '../../../store/film-process/film-process';
 
 type PromoCardProps = {
   id: number;
@@ -10,8 +15,11 @@ type PromoCardProps = {
 };
 
 function PromoCard({id, name, genre, released}: PromoCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(setFavotite());
+  const isFavorite = useAppSelector(getPromoStatus);
   const handlePlayClick = () => {
-    window.open(`/player/${id}`, '_blank', 'top=100, left=100, width=800, height=1000');
+    dispatch(redirectToRoute(`/player/${id}` as AppRoute));
   };
   return (
     <div className="film-card__wrap">
@@ -29,7 +37,7 @@ function PromoCard({id, name, genre, released}: PromoCardProps): JSX.Element {
 
           <div className="film-card__buttons">
             <PlayButton handleClick={handlePlayClick} />
-            <MyListButton id={id} />
+            <MyListButton id={id} isFavorite={isFavorite}/>
           </div>
         </div>
       </div>

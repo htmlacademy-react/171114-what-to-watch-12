@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import Header from '../../components/header/header';
 import LikeThis from '../../components/like-this/like-this';
 import LikeThisLoading from '../../components/like-this/like-this-loading';
@@ -14,32 +15,40 @@ import Reviews from '../../components/reviews/reviews';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import PlayButton from '../../components/play-button/play-button';
-import { NameOfTabs, AuthorizationStatus } from '../../const';
+import { NameOfTabs, AuthorizationStatus, AppRoute } from '../../const';
 import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getFilm,
+import { getFilmDataLoadingStatus,
+  getFilm,
   getCommentsDataLoadingStatus,
-  getComments } from '../../store/film-process/selectors';
+  getComments,
+  getFavoriteStatus } from '../../store/film-process/selectors';
 import { getFilmsSimilarDataLoadingStatus, getFilmsSimilar } from '../../store/films-process/selectors';
+import { redirectToRoute } from '../../store/action';
+import { setFavotite } from '../../store/film-process/film-process';
 
 function Film(): JSX.Element {
+  const dispatch = useAppDispatch();
   const params = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
 
   useEffect(() => {
     if (params.id) {
       store.dispatch(fetchFilmAction({ id: params.id }));
       store.dispatch(fetchFilmsSimilarAction({ id: params.id }));
       store.dispatch(fetchCommentsAction({ id: params.id }));
+      dispatch(setFavotite());
     }
-  }, [params.id]);
+  }, [params.id, dispatch]);
 
   const film = useAppSelector(getFilm);
   const isFilmsSimilarDataLoading = useAppSelector(getFilmsSimilarDataLoadingStatus);
   const reviews = useAppSelector(getComments);
   const isCommentsDataLoading = useAppSelector(getCommentsDataLoadingStatus);
   const filmsSimilar = useAppSelector(getFilmsSimilar);
+  const isFavorite = useAppSelector(getFavoriteStatus);
   if (!params.id || !film ) {
     return <NotFoundScreen />;
   }
@@ -83,8 +92,12 @@ function Film(): JSX.Element {
   };
 
   const handlePlayClick = () => {
-    window.open(`/player/${film.id}`, '_blank', 'top=100, left=100, width=800, height=1000');
+    dispatch(redirectToRoute(`/player/${film.id}` as AppRoute));
   };
+
+  if(isFilmDataLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <React.Fragment>
@@ -110,7 +123,7 @@ function Film(): JSX.Element {
 
               <div className='film-card__buttons'>
                 <PlayButton handleClick={handlePlayClick} />
-                <MyListButton id={film.id} />
+                <MyListButton id={film.id} isFavorite={isFavorite}/>
                 {(authorizationStatus === AuthorizationStatus.Auth) && <Link to={`/films/${film.id}/add-review`} className='btn film-card__button'>Add review</Link>}
 
               </div>
@@ -152,4 +165,4 @@ function Film(): JSX.Element {
   );
 }
 
-export default Film;
+export default React.memo(Film);
