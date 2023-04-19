@@ -8,24 +8,22 @@ import { APIRoute, AppRoute } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { ReviewData } from '../types/review-data';
+import { isFavoriteData } from '../types/is-favorite-data';
 
 export const fetchFilmsAction = createAsyncThunk<Films, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>(
-  'data/fetchFilms',
-  async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<Films>(APIRoute.Films);
-    return data;
-  },
-);
+}>('films/fetchFilms', async (_arg, {dispatch, extra: api}) => {
+  const {data} = await api.get<Films>(APIRoute.Films);
+  return data;
+});
 
 export const fetchFilmAction = createAsyncThunk<Film, { id: string }, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
-  }>('data/fetchFilm', async ({ id }, { dispatch, extra: api }) => {
+  }>('film/fetchFilm', async ({ id }, { dispatch, extra: api }) => {
     const { data } = await api.get<Film>(`${APIRoute.Films}/${id}`);
     return data;
   });
@@ -34,7 +32,7 @@ export const fetchPromoFilmAction = createAsyncThunk<Film, undefined, {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
-  }>('data/fetchPromoFilm', async (_arg, { dispatch, extra: api }) => {
+  }>('film/fetchPromoFilm', async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<Film>(APIRoute.Promo);
     return data;
   });
@@ -43,7 +41,7 @@ export const fetchFilmsSimilarAction = createAsyncThunk<Films, { id: string }, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>('data/fetchFilmsSimilar', async ({ id }, { dispatch, extra: api }) => {
+}>('films/fetchFilmsSimilar', async ({ id }, { dispatch, extra: api }) => {
   const { data } = await api.get<Films>(`${APIRoute.Films}/${id}/similar`);
   return data;
 });
@@ -52,7 +50,7 @@ export const fetchCommentsAction = createAsyncThunk<ReviewsProps, { id: string }
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>('data/fetchComments', async ({ id }, { dispatch, extra: api }) => {
+}>('film/fetchComments', async ({ id }, { dispatch, extra: api }) => {
   const { data } = await api.get<ReviewsProps>(`${APIRoute.Comments}/${id}`);
   return data;
 });
@@ -108,9 +106,19 @@ export const addReviewAction = createAsyncThunk<void, ReviewData, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/addReview',
+  'film/addReview',
   async ({id, rating, comment}, {dispatch, extra: api}) => {
     await api.post<ReviewData>(`${APIRoute.Comments}/${id}`, {rating, comment});
-    dispatch(redirectToRoute(AppRoute.Main));
+    dispatch(redirectToRoute(`/films/${id}/reviews` as AppRoute));
   },
 );
+
+export const changeIsFavoriteAction = createAsyncThunk<void, isFavoriteData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('film/changeIsFavorite', async ({id, isFavorite}, {dispatch, extra: api}) => {
+  await api.post<void>(`${APIRoute.MyList}/${id}/${isFavorite}`).then(() => {
+    dispatch(fetchMyListAction());
+  });
+});

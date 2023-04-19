@@ -1,4 +1,4 @@
-import { combineReducers} from '@reduxjs/toolkit';
+import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace} from '../const';
 import { filmsProcess } from './films-process/films-process';
 import { filmProcess } from './film-process/film-process';

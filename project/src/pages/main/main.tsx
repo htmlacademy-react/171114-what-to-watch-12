@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useCallback } from 'react';
 import { getFilteredFilms } from '../../store/films-process/selectors';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import PromoFilm from '../../components/promo-film/promo-film';
 import FilmsList from '../../components/films-list/films-list';
 import GenresList from '../../components/genres-list/genres-list';
@@ -15,21 +16,25 @@ import {
   setGenre
 } from '../../store/films-process/films-process';
 import { useSearchParams } from 'react-router-dom';
-import { getFilmsCount, getFilms, getRenderedFilmsCount } from '../../store/films-process/selectors';
-import { getPromo, getPromoLoadingStatus } from '../../store/film-process/selectors';
+import { getFilmsDataLoadingStatus,
+  getFilmsCount,
+  getFilms,
+  getRenderedFilmsCount } from '../../store/films-process/selectors';
+import { getPromoLoadingStatus } from '../../store/film-process/selectors';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const filmInfo = useAppSelector(getPromo);
+  const isFilmsDataLoading = useAppSelector(getFilmsDataLoadingStatus);
   const isPromoLoading = useAppSelector(getPromoLoadingStatus);
   const filmsCount = useAppSelector(getFilmsCount);
   const films = useAppSelector(getFilms);
   const filteredFilms = useAppSelector(getFilteredFilms);
   const renderedFilmsCount = useAppSelector(getRenderedFilmsCount);
   const [searchParams] = useSearchParams();
+
   useEffect(() => {
-    setGenre(searchParams.get('genre'));
-  }, [searchParams]);
+    dispatch(setGenre(searchParams.get('genre')));
+  }, [searchParams, dispatch]);
 
   const handleClick = useCallback(
     () => dispatch(renderedFilmsInc()),
@@ -45,10 +50,14 @@ function Main(): JSX.Element {
   }, [dispatch]);
 
   const renderPromo = () => {
-    if(!isPromoLoading && filmInfo) {
-      return <PromoFilm name={filmInfo.name} genre={filmInfo.genre} released={filmInfo.released}/>;
+    if(!isPromoLoading) {
+      return <PromoFilm />;
     }
   };
+
+  if(isFilmsDataLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <React.Fragment>

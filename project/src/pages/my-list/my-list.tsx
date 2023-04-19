@@ -6,8 +6,11 @@ import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
 import { getMyList, getMyListLoadingStatus } from '../../store/films-process/selectors';
+import { store } from '../../store';
+import { fetchMyListAction } from '../../store/api-actions';
 
 function MyList(): JSX.Element {
+  store.dispatch(fetchMyListAction());
   const films = useAppSelector(getMyList);
   const isMyListLoading = useAppSelector(getMyListLoadingStatus);
   return (
@@ -23,7 +26,7 @@ function MyList(): JSX.Element {
         </header>
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          {isMyListLoading
+          {!isMyListLoading
             ? <h2 className="catalog__title">Loading...</h2>
             : <FilmsList filmsFiltered={films}/>}
         </section>

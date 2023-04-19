@@ -65,14 +65,16 @@ export const Genres = {
 };
 
 export enum NameSpace {
-  Film = 'FILM',
-  Films = 'FILMS',
-  User = 'USER',
+  Film = 'film',
+  Films = 'films',
+  User = 'user',
 }
 
 export const FILM_COUNT_PER_STEP = 8;
 export const TIME_OUT_DELAY = 1000;
 export const REVIEW_DATE_FORMAT = 'MMMM D, YYYY';
+export const TIME_LEFT_FORMAT_MINUTES = '-mm:ss';
+export const TIME_LEFT_FORMAT_HOURS = '-HH:mm:ss';
 export const MAX_COUNT_OF_GENRE_LIST = 9;
 export const BACKEND_URL = 'https://12.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;

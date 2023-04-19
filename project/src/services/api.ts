@@ -36,7 +36,7 @@ export const createAPI = (): AxiosInstance => {
       if (error.response && shouldDisplayError(error.response)) {
         if (error.config.url === APIRoute.Login &&
             error.config.method === 'get') {
-          return;
+          throw error;
         }
         toast.warn(error.response.data.error);
       }
