@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUserRating } from '../../utils';
+import { getUserRating } from '../../utils/utils';
 
 type OverviewProps = {
   rating: number;
