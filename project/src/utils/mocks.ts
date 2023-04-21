@@ -19,3 +19,16 @@ export const film = {
   released: 2014,
   isFavorite: true
 };
+
+export const comments = [
+  {
+    comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the directors funniest and most exquisitely designed movies in years.',
+    date: 'Fri Apr 21 2023 00:24:39 GMT+0800 (Иркутск, стандартное время)',
+    id: 1,
+    rating: 8.9,
+    user: {
+      id: 4,
+      name: 'Kate Muir'}
+  }];
+
+export const films = Array(20).fill(film);
