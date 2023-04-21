@@ -229,10 +229,11 @@ describe('Reducer: filmProcess', () => {
       isCommentsDataLoading: false,
       isFavotite: false,
       isPromoFavotite: false,};
-    expect(filmProcess.reducer(state, {type: changeIsFavoriteAction.fulfilled.type, payload: film}))
+    expect(filmProcess.reducer(state, {type: changeIsFavoriteAction.fulfilled.type,
+      meta: {arg: {id: 1, isFavorite: 1, },},}))
       .toEqual({film,
         promo: null,
-        comments,
+        comments: [],
         isFilmDataLoading: false,
         isPromoLoading: false,
         isCommentsDataLoading: false,
@@ -249,10 +250,11 @@ describe('Reducer: filmProcess', () => {
       isCommentsDataLoading: false,
       isFavotite: true,
       isPromoFavotite: false,};
-    expect(filmProcess.reducer(state, {type: changeIsFavoriteAction.fulfilled.type, payload: film}))
+    expect(filmProcess.reducer(state, {type: changeIsFavoriteAction.fulfilled.type,
+      meta: {arg: {id: 1, isFavorite: 1, },},}))
       .toEqual({film,
         promo: film,
-        comments,
+        comments: [],
         isFilmDataLoading: false,
         isPromoLoading: false,
         isCommentsDataLoading: false,

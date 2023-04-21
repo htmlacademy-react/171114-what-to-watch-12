@@ -3,7 +3,15 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../services/api';
-import { checkAuthAction, loginAction, logoutAction, fetchFilmsAction } from './api-actions';
+import { checkAuthAction,
+  loginAction,
+  logoutAction,
+  fetchFilmsAction,
+  fetchFilmAction,
+  fetchPromoFilmAction,
+  fetchFilmsSimilarAction,
+  fetchCommentsAction,
+  fetchMyListAction } from './api-actions';
 import { APIRoute } from '../const';
 import { State } from '../types/state';
 import { AuthData } from '../types/auth-data';
@@ -77,6 +85,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       logoutAction.pending.type,
+      redirectToRoute.type,
       logoutAction.fulfilled.type
     ]);
 
@@ -84,7 +93,7 @@ describe('Async actions', () => {
     expect(Storage.prototype.removeItem).toBeCalledWith('what-to-whatch-token');
   });
 
-  it('should dispatch Load_Questions when GET /questions', async () => {
+  it('should dispatch fetchFilmsAction when GET /films', async () => {
     mockAPI
       .onGet(APIRoute.Films)
       .reply(200, films);
@@ -98,6 +107,94 @@ describe('Async actions', () => {
     expect(actions).toEqual([
       fetchFilmsAction.pending.type,
       fetchFilmsAction.fulfilled.type
+    ]);
+  });
+
+  it('should dispatch fetchFilmAction when GET /films/{id}', async () => {
+    const id = '1';
+    mockAPI
+      .onGet(`${APIRoute.Films}/${id}`)
+      .reply(200, films);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchFilmAction({id}));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      fetchFilmAction.pending.type,
+      fetchFilmAction.fulfilled.type
+    ]);
+  });
+
+  it('should dispatch fetchPromoFilmAction when GET /promo', async () => {
+    mockAPI
+      .onGet(APIRoute.Promo)
+      .reply(200, films);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchPromoFilmAction());
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      fetchPromoFilmAction.pending.type,
+      fetchPromoFilmAction.fulfilled.type
+    ]);
+  });
+
+  it('should dispatch fetchFilmsSimilarAction when GET /films/{id}/similar', async () => {
+    const id = '1';
+    mockAPI
+      .onGet(`${APIRoute.Films}/${id}/similar`)
+      .reply(200, films);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchFilmsSimilarAction({id}));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      fetchFilmsSimilarAction.pending.type,
+      fetchFilmsSimilarAction.fulfilled.type
+    ]);
+  });
+
+  it('should dispatch fetchCommentsAction when GET /comments/{id}', async () => {
+    const id = '1';
+    mockAPI
+      .onGet(`${APIRoute.Comments}/${id}`)
+      .reply(200, films);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchCommentsAction({id}));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      fetchCommentsAction.pending.type,
+      fetchCommentsAction.fulfilled.type
+    ]);
+  });
+
+  it('should dispatch fetchMyListAction when GET /favorite', async () => {
+    mockAPI
+      .onGet(APIRoute.MyList)
+      .reply(200, films);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchMyListAction());
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      fetchMyListAction.pending.type,
+      fetchMyListAction.fulfilled.type
     ]);
   });
 });
