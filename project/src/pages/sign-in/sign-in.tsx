@@ -1,16 +1,17 @@
-import { useRef, FormEvent } from 'react';
+import { useRef, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import { EMAIL_REGEXP, PASSWORD_REGEXP } from '../../const';
 
 function SignIn(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
 
+  const [error, setError] = useState({error: false, message: ''});
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
   };
@@ -19,10 +20,21 @@ function SignIn(): JSX.Element {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+      if(EMAIL_REGEXP.test(loginRef.current.value)) {
+        setError({error: false, message:''});
+        if(PASSWORD_REGEXP.test(passwordRef.current.value)) {
+          setError({error: false, message:''});
+          onSubmit({
+            login: loginRef.current.value,
+            password: passwordRef.current.value,
+          });
+        } else {
+          setError({error: true, message:'Please enter a valid password'});
+        }
+      } else {
+        setError({error: true, message:'Please enter a valid email address'});
+      }
+
     }
   };
   return (
@@ -41,6 +53,7 @@ function SignIn(): JSX.Element {
           className="sign-in__form"
           onSubmit={handleSubmit}
         >
+          {error.error && <div className="sign-in__message"><p>{error.message}</p></div>}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -53,7 +66,7 @@ function SignIn(): JSX.Element {
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
-            <div className="sign-in__field">
+            <div className={error.error ? 'sign-in__field sign-in__field--error' : 'sign-in__field'}>
               <input
                 ref={passwordRef}
                 className="sign-in__input"

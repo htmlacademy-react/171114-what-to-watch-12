@@ -32,3 +32,13 @@ export const comments = [
   }];
 
 export const films = Array(20).fill(film);
+
+export const comment = {
+  comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the directors funniest and most exquisitely designed movies in years.',
+  date: 'Sat Apr 22 2023 13:33:24 GMT+0800 (Иркутск, стандартное время)',
+  id: 1,
+  rating: 8.9,
+  user: {
+    id: 4,
+    name: 'Kate Muir'
+  }};

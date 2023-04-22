@@ -48,22 +48,6 @@ export const Filmratinglevel = {
   },
 };
 
-export const Genres = {
-  'all': 'All genres',
-  'Comedy': 'Comedies',
-  'Crime': 'Crime',
-  'Documentary': 'Documentary',
-  'Drama': 'Dramas',
-  'Horror': 'Horror',
-  'Kids & Family': 'Kids & Family',
-  'Romance': 'Romance',
-  'Sci-Fi': 'Sci-Fi',
-  'Thriller': 'Thrillers',
-  'Adventure': 'Adventure',
-  'Action': 'Action',
-  'Fantasy': 'Fantasy'
-};
-
 export enum NameSpace {
   Film = 'film',
   Films = 'films',
@@ -79,3 +63,5 @@ export const MAX_COUNT_OF_GENRE_LIST = 9;
 export const BACKEND_URL = 'https://12.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_GENRE = 'All genres';
+export const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})/i;
+export const PASSWORD_REGEXP = /[0-9][a-zA-Z]{2,}/i;
