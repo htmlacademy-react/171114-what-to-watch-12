@@ -59,7 +59,6 @@ function SignIn(): JSX.Element {
               <input
                 ref={loginRef}
                 className="sign-in__input"
-                type="email"
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"

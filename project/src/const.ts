@@ -63,5 +63,5 @@ export const MAX_COUNT_OF_GENRE_LIST = 9;
 export const BACKEND_URL = 'https://12.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_GENRE = 'All genres';
-export const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})/i;
-export const PASSWORD_REGEXP = /[0-9][a-zA-Z]{2,}/i;
+export const EMAIL_REGEXP = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
+export const PASSWORD_REGEXP = /^([A-Za-z0-9~`'&quot;!@#№?$%^&*()_\-+\\=<>|/.,:;[\]{}]{2,25})$/;
