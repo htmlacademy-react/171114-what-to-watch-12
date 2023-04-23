@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { Filmratinglevel,
   REVIEW_DATE_FORMAT,
   TIME_LEFT_FORMAT_MINUTES,
-  TIME_LEFT_FORMAT_HOURS } from './const';
+  TIME_LEFT_FORMAT_HOURS } from '../const';
 
 const getRunTime = (duration: number) => `${Math.round(duration / 60)}h ${duration % 60}m`;
 

@@ -1,5 +1,5 @@
 import { ReviewProps } from '../../types/film-info';
-import { getReviewDate } from '../../utils';
+import { getReviewDate } from '../../utils/utils';
 
 function Review({id, comment, user, date, rating}: ReviewProps): JSX.Element {
   return (

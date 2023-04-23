@@ -11,9 +11,6 @@ import SignIn from '../../pages/sign-in/sign-in';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
 import ScrollToTop from '../../components/scroll-to-top/scroll-to-top';
-
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -32,48 +29,46 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <ScrollToTop>
-          <Routes>
-            <Route
-              path={AppRoute.Main}
-              element={<Main />}
-            />
-            <Route
-              path={AppRoute.AddReview}
-              element={<AddReview />}
-            />
-            <Route
-              path={AppRoute.Film}
-              element={<Film />}
-            />
-            <Route
-              path={AppRoute.FilmTab}
-              element={<Film />}
-            />
-            <Route
-              path={AppRoute.SignIn}
-              element={<SignIn />}
-            />
-            <Route
-              path={AppRoute.MyList}
-              element={
-                <PrivateRoute authorizationStatus={authorizationStatus}>
-                  <MyList />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path={AppRoute.Player}
-              element={<Player />}
-            />
-            <Route
-              path="*"
-              element={<NotFoundScreen />}
-            />
-          </Routes>
-        </ScrollToTop>
-      </HistoryRouter>
+      <ScrollToTop>
+        <Routes>
+          <Route
+            path={AppRoute.Main}
+            element={<Main />}
+          />
+          <Route
+            path={AppRoute.AddReview}
+            element={<AddReview />}
+          />
+          <Route
+            path={AppRoute.Film}
+            element={<Film />}
+          />
+          <Route
+            path={AppRoute.FilmTab}
+            element={<Film />}
+          />
+          <Route
+            path={AppRoute.SignIn}
+            element={<SignIn />}
+          />
+          <Route
+            path={AppRoute.MyList}
+            element={
+              <PrivateRoute authorizationStatus={authorizationStatus}>
+                <MyList />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={AppRoute.Player}
+            element={<Player />}
+          />
+          <Route
+            path="*"
+            element={<NotFoundScreen />}
+          />
+        </Routes>
+      </ScrollToTop>
     </HelmetProvider>
   );
 }

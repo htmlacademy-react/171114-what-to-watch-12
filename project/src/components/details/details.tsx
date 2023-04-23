@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { getRunTime } from '../../utils';
+import { getRunTime } from '../../utils/utils';
 
 type DetailsProps = {
   director: string;

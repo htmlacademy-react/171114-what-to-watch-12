@@ -4,6 +4,7 @@ import { Films, Film, ReviewsProps } from '../types/film-info';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
+  authorizationError: boolean;
 };
 
 export type FilmProcess = {
@@ -15,6 +16,8 @@ export type FilmProcess = {
   isCommentsDataLoading: boolean;
   isFavotite: boolean;
   isPromoFavotite: boolean;
+  isFormDisabled: boolean;
+  addReviewError: boolean;
 }
 
 export type FilmsProcess = {

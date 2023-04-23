@@ -10,3 +10,5 @@ export const getComments = (state: State): ReviewsProps => state[NameSpace.Film]
 export const getCommentsDataLoadingStatus = (state: State): boolean => state[NameSpace.Film].isCommentsDataLoading;
 export const getFavoriteStatus = (state: State): boolean => state[NameSpace.Film].isFavotite;
 export const getPromoStatus = (state: State): boolean => state[NameSpace.Film].isPromoFavotite;
+export const getFormStatus = (state: State): boolean => state[NameSpace.Film].isFormDisabled;
+export const getFormError = (state: State): boolean => state[NameSpace.Film].addReviewError;

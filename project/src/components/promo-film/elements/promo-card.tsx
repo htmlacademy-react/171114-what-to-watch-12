@@ -5,7 +5,6 @@ import PlayButton from '../../../components/play-button/play-button';
 import { getPromoStatus } from '../../../store/film-process/selectors';
 import { redirectToRoute } from '../../../store/action';
 import { AppRoute } from '../../../const';
-import { setFavotite } from '../../../store/film-process/film-process';
 
 type PromoCardProps = {
   id: number;
@@ -16,7 +15,6 @@ type PromoCardProps = {
 
 function PromoCard({id, name, genre, released}: PromoCardProps): JSX.Element {
   const dispatch = useAppDispatch();
-  dispatch(setFavotite());
   const isFavorite = useAppSelector(getPromoStatus);
   const handlePlayClick = () => {
     dispatch(redirectToRoute(`/player/${id}` as AppRoute));

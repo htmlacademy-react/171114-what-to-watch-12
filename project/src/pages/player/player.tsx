@@ -7,7 +7,7 @@ import Spinner from '../../components/spinner/spinner';
 import { fetchFilmAction } from '../../store/api-actions';
 import { getFilm } from '../../store/film-process/selectors';
 import { store } from '../../store';
-import { getTimeLeft } from '../../utils';
+import { getTimeLeft } from '../../utils/utils';
 import { redirectToRoute } from '../../store/action';
 import { AppRoute } from '../../const';
 
