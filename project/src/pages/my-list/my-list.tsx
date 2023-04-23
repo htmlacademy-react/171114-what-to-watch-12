@@ -4,15 +4,24 @@ import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/header/elements/user-block';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getMyList, getMyListLoadingStatus } from '../../store/films-process/selectors';
 import { store } from '../../store';
 import { fetchMyListAction } from '../../store/api-actions';
+import { redirectToRoute } from '../../store/action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus, AppRoute } from '../../const';
 
 function MyList(): JSX.Element {
   store.dispatch(fetchMyListAction());
   const films = useAppSelector(getMyList);
   const isMyListLoading = useAppSelector(getMyListLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const dispatch = useAppDispatch();
+
+  if(authorizationStatus !== AuthorizationStatus.Auth) {
+    dispatch(redirectToRoute(AppRoute.SignIn));
+  }
   return (
     <React.Fragment>
       <Helmet>

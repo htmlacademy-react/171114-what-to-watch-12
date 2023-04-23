@@ -4,7 +4,8 @@ import { FilmProcess } from '../../types/state';
 import { fetchFilmAction,
   fetchCommentsAction,
   fetchPromoFilmAction,
-  changeIsFavoriteAction } from '../api-actions';
+  changeIsFavoriteAction,
+  addReviewAction } from '../api-actions';
 
 const initialState: FilmProcess = {
   film: null,
@@ -15,6 +16,8 @@ const initialState: FilmProcess = {
   isCommentsDataLoading: false,
   isFavotite: false,
   isPromoFavotite: false,
+  isFormDisabled: false,
+  addReviewError: false,
 };
 
 export const filmProcess = createSlice({
@@ -68,6 +71,18 @@ export const filmProcess = createSlice({
         } else {
           state.isFavotite = !state.isFavotite;
         }
+      })
+      .addCase(addReviewAction.pending, (state) => {
+        state.isFormDisabled = true;
+        state.addReviewError = false;
+      })
+      .addCase(addReviewAction.fulfilled, (state) => {
+        state.isFormDisabled = false;
+        state.addReviewError = false;
+      })
+      .addCase(addReviewAction.rejected, (state) => {
+        state.isFormDisabled = false;
+        state.addReviewError = true;
       });
   }
 });

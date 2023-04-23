@@ -1,12 +1,19 @@
-import React from 'react';
-import { useAppSelector } from '../../hooks';
+import React, { useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import Header from '../../components/header/header';
 import PromoCard from './elements/promo-card';
 import PromoNotFound from './elements/promo-not-found';
 import { getPromo } from '../../store/film-process/selectors';
+import { setFavotite } from '../../store/film-process/film-process';
 
 function PromoFilm(): JSX.Element {
   const filmInfo = useAppSelector(getPromo);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setFavotite());
+  }, [dispatch]);
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
