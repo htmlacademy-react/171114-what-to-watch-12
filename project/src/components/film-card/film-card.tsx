@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FilmCardProps } from '../../types/film-info';
-import cls from './film-card.module.css';
 import CardPlayer from './elements/card-player';
 import CardPoster from './elements/card-poster';
 import { TIME_OUT_DELAY } from '../../const';
@@ -45,9 +43,7 @@ function FilmCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link to={`/films/${id}/`} className={cls.wrapper}>
-        {renderFilm()}
-      </Link>
+      {renderFilm()}
     </article>
   );
 }

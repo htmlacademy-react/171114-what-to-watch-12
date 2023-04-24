@@ -42,7 +42,12 @@ export const createAPI = (): AxiosInstance => {
           error.config.method === 'post') {
           throw error;
         }
+        if (error.config.url && (error.config.url.includes('/films/') || error.config.url.includes('/comments/'))) {
+          throw error;
+        }
         toast.warn(error.response.data.error);
+        // eslint-disable-next-line no-console
+        console.log(error.config.url);
       }
       throw error;
     }

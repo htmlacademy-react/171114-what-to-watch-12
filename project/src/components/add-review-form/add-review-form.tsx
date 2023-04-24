@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 import { ReviewData } from '../../types/review-data';
 import { getFormStatus, getFormError } from '../../store/film-process/selectors';
+import { MIN_TEXT_LENGHT, MAX_TEXT_LENGHT } from '../../const';
 
 type AddReviewFormProps = { id: number };
 
@@ -25,15 +26,20 @@ function AddReviewForm({id}: AddReviewFormProps): JSX.Element {
 
   const handleTextChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
     setFormData({...formData, comment: event.target.value});
-    if(50 <= event.target.value.length && event.target.value.length <= 400 && formData.rating !== 0) {
+    if(MIN_TEXT_LENGHT <= event.target.value.length && formData.rating !== 0) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
   };
 
-  const onAnswer = (data: ReviewData) => {
-    dispatch(addReviewAction(data));
+  const onSendReview = (data: ReviewData) => {
+    if(formData.comment.length >= MAX_TEXT_LENGHT) {
+      toast.error('The length of the review should not be more than 400 characters');
+    } else {
+      dispatch(addReviewAction(data));
+    }
+
   };
 
   return (
@@ -43,7 +49,7 @@ function AddReviewForm({id}: AddReviewFormProps): JSX.Element {
       className="add-review__form"
       onSubmit={(evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
-        onAnswer(formData);
+        onSendReview(formData);
       }}
     >
       <div className="rating">

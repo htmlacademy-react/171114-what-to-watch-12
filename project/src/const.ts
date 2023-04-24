@@ -54,6 +54,11 @@ export enum NameSpace {
   User = 'user',
 }
 
+export const None = {
+  isActive: false,
+  isPending: false
+} as React.CSSProperties;
+
 export const FILM_COUNT_PER_STEP = 8;
 export const TIME_OUT_DELAY = 1000;
 export const REVIEW_DATE_FORMAT = 'MMMM D, YYYY';
@@ -64,3 +69,7 @@ export const BACKEND_URL = 'https://12.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_GENRE = 'All genres';
 export const EMAIL_REGEXP = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
+export const MIN_TEXT_LENGHT = 50;
+export const MAX_TEXT_LENGHT = 400;
+export const TRUE_NUMBER = 1;
+export const FALSE_NUMBER = 0;
