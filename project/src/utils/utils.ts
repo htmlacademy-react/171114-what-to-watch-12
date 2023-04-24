@@ -36,9 +36,23 @@ const getUserRating = (filmRating: number): string => {
   return Filmratinglevel.AWENSOME.rating;
 };
 
+const checkPassword = (password: string | undefined) => {
+  if (
+    !password ||
+    password.length < 2 ||
+    !/\d/.test(password) ||
+    !/\D/i.test(password) ||
+    false
+  ) {
+    return false;
+  }
+  return true;
+};
+
 export {
   getUserRating,
   getReviewDate,
   getRunTime,
-  getTimeLeft
+  getTimeLeft,
+  checkPassword
 };

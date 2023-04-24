@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AuthorizationStatus, AppRoute, TRUE_NUMBER, FALSE_NUMBER } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { changeIsFavoriteAction } from '../../store/api-actions';
@@ -20,7 +20,7 @@ function MyListButton({id, isFavorite}: MyListButtonProps): JSX.Element {
     if(authorizationStatus === AuthorizationStatus.Auth) {
       const favoriteData = {
         id,
-        isFavorite: isFavorite ? 0 : 1
+        isFavorite: isFavorite ? FALSE_NUMBER : TRUE_NUMBER
       };
       dispatch(changeIsFavoriteAction(favoriteData));
     } else {

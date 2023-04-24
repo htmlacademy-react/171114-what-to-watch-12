@@ -9,6 +9,7 @@ import { getFilm } from '../../store/film-process/selectors';
 import { store } from '../../store';
 import { getTimeLeft } from '../../utils/utils';
 import { redirectToRoute } from '../../store/action';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 function Player(): JSX.Element {
@@ -20,6 +21,7 @@ function Player(): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (params.id) {
@@ -32,7 +34,7 @@ function Player(): JSX.Element {
   };
   const handleExitClick = () => {
     if(film) {
-      dispatch(redirectToRoute(`/films/${film.id}` as AppRoute));
+      navigate(-1);
     } else {
       dispatch(redirectToRoute(AppRoute.Main));
     }
@@ -51,13 +53,12 @@ function Player(): JSX.Element {
   const handleFullScreenClick = () => {
     if (ref.current) {
       ref.current.requestFullscreen();
-
     }
   };
   const handleTimeUpdate = () => {
     if (ref.current) {
-      setCurrentTime(ref.current.currentTime);
-      setTimeLeft(currentTime / ref.current.duration * 100);
+      setCurrentTime(ref.current.duration - ref.current.currentTime);
+      setTimeLeft(ref.current.currentTime / ref.current.duration * 100);
     }
   };
 

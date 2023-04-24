@@ -15,7 +15,7 @@ import Reviews from '../../components/reviews/reviews';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import PlayButton from '../../components/play-button/play-button';
-import { NameOfTabs, AuthorizationStatus, AppRoute } from '../../const';
+import { NameOfTabs, AuthorizationStatus, AppRoute, None } from '../../const';
 import { fetchFilmAction, fetchFilmsSimilarAction, fetchCommentsAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -141,13 +141,13 @@ function Film(): JSX.Element {
               <nav className='film-nav film-card__nav'>
                 <ul className='film-nav__list'>
                   <li className={setActiveTab('overview')}>
-                    <NavLink to={`/films/${film.id}/overview`} className='film-nav__link'>Overview</NavLink>
+                    <NavLink to={`/films/${film.id}/overview`} className='film-nav__link' style={None} >Overview</NavLink>
                   </li>
                   <li className={setActiveTab('details')}>
-                    <NavLink to={`/films/${film.id}/details`} className='film-nav__link'>Details</NavLink>
+                    <NavLink to={`/films/${film.id}/details`} className='film-nav__link' style={None} >Details</NavLink>
                   </li>
                   <li className={setActiveTab('reviews')}>
-                    <NavLink to={`/films/${film.id}/reviews`} className='film-nav__link'>Reviews</NavLink>
+                    <NavLink to={`/films/${film.id}/reviews`} className='film-nav__link' style={None} >Reviews</NavLink>
                   </li>
                 </ul>
               </nav>

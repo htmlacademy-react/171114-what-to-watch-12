@@ -5,6 +5,7 @@ import { AuthData } from '../../types/auth-data';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { EMAIL_REGEXP } from '../../const';
+import { checkPassword } from '../../utils/utils';
 import { getAuthorizationStatus, getAuthorizationError } from '../../store/user-process/selectors';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { redirectToRoute } from '../../store/action';
@@ -34,7 +35,7 @@ function SignIn(): JSX.Element {
     if (loginRef.current !== null && passwordRef.current !== null) {
       if(EMAIL_REGEXP.test(loginRef.current.value)) {
         setError({error: false, message:''});
-        if(isPasswordValid(passwordRef.current.value)) {
+        if(checkPassword(passwordRef.current.value)) {
           setError({error: false, message:''});
           onSubmit({
             login: loginRef.current.value,
@@ -96,21 +97,6 @@ function SignIn(): JSX.Element {
       </div>
     </div>
   );
-}
-
-
-function isPasswordValid(password: string | undefined) {
-  if (
-    !password ||
-    password.length < 2 ||
-    !/\d/.test(password) ||
-    !/\D/i.test(password) ||
-    false
-  ) {
-    return false;
-  }
-
-  return true;
 }
 
 export default SignIn;
