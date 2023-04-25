@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import {createMemoryHistory} from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import MyListButton from './my-list-button';
 import { films, film } from '../../utils/mocks';
 import { AuthorizationStatus, DEFAULT_GENRE, FILM_COUNT_PER_STEP } from '../../const';

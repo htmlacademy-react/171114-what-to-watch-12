@@ -1,19 +1,20 @@
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../history-router/history-router';
-import Footer from './footer';
+import Reviews from './reviews';
+import { comments } from '../../utils/mocks';
 
-describe('Component: NotFoundScreen', () => {
+describe('Component: Reviews', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
     render(
       <HistoryRouter history={history}>
-        <Footer/>
+        <Reviews reviews={comments}/>
       </HistoryRouter>,
     );
 
-    const element = screen.getByText(/2019 What to watch Ltd/i);
+    const element = screen.getByText(`${comments[0].comment}`);
 
     expect(element).toBeInTheDocument();
   });

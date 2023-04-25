@@ -1,33 +1,36 @@
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { useAppSelector} from '../../hooks';
 import FilmCardHeader from '../../components/film-card-header/film-card-header';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { store } from '../../store';
-import { fetchFilmAction } from '../../store/api-actions';
+import { fetchFilmAction, checkAuthAction } from '../../store/api-actions';
 import { getFilm } from '../../store/film-process/selectors';
-import { redirectToRoute } from '../../store/action';
+import { AuthorizationStatus, AppRoute } from '../../const';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useNavigate } from 'react-router-dom';
 
 function AddReview(): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const params = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.SignIn);
+    }
+  }, [authorizationStatus, navigate]);
+
   useEffect(() => {
     if (params.id) {
       store.dispatch(fetchFilmAction({ id: params.id }));
+      store.dispatch(checkAuthAction());
     }
   }, [params.id]);
 
   const film = useAppSelector(getFilm);
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const dispatch = useAppDispatch();
-
-  if(authorizationStatus !== AuthorizationStatus.Auth) {
-    dispatch(redirectToRoute(AppRoute.SignIn));
-  }
-
   if(params.id === undefined || !film) {
     return (
       <NotFoundScreen />

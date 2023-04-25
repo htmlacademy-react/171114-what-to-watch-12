@@ -3,9 +3,9 @@ import { AuthorizationStatus, AppRoute, TRUE_NUMBER, FALSE_NUMBER } from '../../
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { changeIsFavoriteAction } from '../../store/api-actions';
-import { redirectToRoute } from '../../store/action';
 import { getMyList } from '../../store/films-process/selectors';
 import { setFavotite } from '../../store/film-process/film-process';
+import { useNavigate } from 'react-router-dom';
 
 type MyListButtonProps = {
   id: number;
@@ -16,6 +16,7 @@ function MyListButton({id, isFavorite}: MyListButtonProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const myFilms = useAppSelector(getMyList);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleClick = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {
       const favoriteData = {
@@ -24,7 +25,7 @@ function MyListButton({id, isFavorite}: MyListButtonProps): JSX.Element {
       };
       dispatch(changeIsFavoriteAction(favoriteData));
     } else {
-      dispatch(redirectToRoute(AppRoute.SignIn));
+      navigate(AppRoute.SignIn);
     }
   };
   useEffect(() => {

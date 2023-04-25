@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import HistoryRouter from './components/history-route/history-route';
+import HistoryRouter from './components/history-router/history-router';
 import browserHistory from './browser-history';
 import { Provider } from 'react-redux';
 import {ToastContainer} from 'react-toastify';
