@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import { AuthorizationStatus, AppRoute, DEFAULT_GENRE, FILM_COUNT_PER_STEP } from '../../const';
 import App from './app';
 import { films, film } from '../../utils/mocks';
@@ -26,12 +26,17 @@ const store = mockStore({
   },
 });
 
+window.scrollTo = jest.fn();
+
+window.HTMLMediaElement.prototype.play = () => new Promise((resolve) => {
+  resolve();});
+
 const history = createMemoryHistory();
 
 const fakeApp = (
-  <Provider store={store}>
-    <HistoryRouter history={history}>
-      <App />
+  <Provider store={store} key={'1'}>
+    <HistoryRouter history={history} key={'2'}>
+      <App key={'3'}/>
     </HistoryRouter>
   </Provider>
 );

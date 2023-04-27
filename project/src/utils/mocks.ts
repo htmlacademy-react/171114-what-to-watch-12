@@ -33,6 +33,73 @@ export const comments = [
 
 export const films = Array(20).fill(film);
 
+export const filmsMock = [
+  {
+    id: 1,
+    name: 'The Grand Budapest Hotel',
+    posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
+    previewImage: 'img/the-grand-budapest-hotel.jpg',
+    backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
+    backgroundColor: '#ffffff',
+    videoLink: 'https://some-link',
+    previewVideoLink: 'https://some-link',
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.',
+    rating: 8.9,
+    scoresCount: 240,
+    director: 'Wes Anderson',
+    starring: [
+      'Bill Murray'
+    ],
+    runTime: 99,
+    genre: 'Comedy',
+    released: 2014,
+    isFavorite: true
+  },
+  {
+    id: 2,
+    name: 'What We Do in the Shadows',
+    posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
+    previewImage: 'img/the-grand-budapest-hotel.jpg',
+    backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
+    backgroundColor: '#ffffff',
+    videoLink: 'https://some-link',
+    previewVideoLink: 'https://some-link',
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.',
+    rating: 8.9,
+    scoresCount: 240,
+    director: 'Wes Anderson',
+    starring: [
+      'Bill Murray'
+    ],
+    runTime: 99,
+    genre: 'Comedy',
+    released: 2014,
+    isFavorite: true
+  },
+  {
+    id: 3,
+    name: 'Dardjeeling Limited',
+    posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
+    previewImage: 'img/the-grand-budapest-hotel.jpg',
+    backgroundImage: 'img/the-grand-budapest-hotel-bg.jpg',
+    backgroundColor: '#ffffff',
+    videoLink: 'https://some-link',
+    previewVideoLink: 'https://some-link',
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.',
+    rating: 8.9,
+    scoresCount: 240,
+    director: 'Wes Anderson',
+    starring: [
+      'Bill Murray'
+    ],
+    runTime: 99,
+    genre: 'Comedy',
+    released: 2014,
+    isFavorite: true
+  }
+];
+
+
 export const comment = {
   comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the directors funniest and most exquisitely designed movies in years.',
   date: 'Sat Apr 22 2023 13:33:24 GMT+0800 (Иркутск, стандартное время)',

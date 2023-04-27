@@ -6,8 +6,11 @@ import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import { useAppSelector } from '../../hooks';
 import { getMyList, getMyListLoadingStatus } from '../../store/films-process/selectors';
+import { AppRoute } from '../../const';
+import { useRedirectingIfNotAuth } from '../../hooks/use-redirect-if-not-auth';
 
 function MyList(): JSX.Element {
+  useRedirectingIfNotAuth(AppRoute.SignIn);
   const films = useAppSelector(getMyList);
   const isMyListLoading = useAppSelector(getMyListLoadingStatus);
 
@@ -31,7 +34,6 @@ function MyList(): JSX.Element {
         <Footer />
       </div>
     </React.Fragment>
-
   );
 }
 

@@ -26,7 +26,9 @@ function AddReviewForm({id}: AddReviewFormProps): JSX.Element {
 
   const handleTextChange: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
     setFormData({...formData, comment: event.target.value});
-    if(MIN_TEXT_LENGHT <= event.target.value.length && formData.rating !== 0) {
+    if(MIN_TEXT_LENGHT <= event.target.value.length) {
+      setIsDisabled(false);
+    } if(formData.rating !== 0) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
@@ -36,6 +38,8 @@ function AddReviewForm({id}: AddReviewFormProps): JSX.Element {
   const onSendReview = (data: ReviewData) => {
     if(formData.comment.length >= MAX_TEXT_LENGHT) {
       toast.error('The length of the review should not be more than 400 characters');
+    } if(formData.rating === 0) {
+      toast.error('It is necessary to set a rating');
     } else {
       dispatch(addReviewAction(data));
     }

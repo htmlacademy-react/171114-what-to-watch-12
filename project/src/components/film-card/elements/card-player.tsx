@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import { FilmCardProps } from '../../../types/film-info';
 import { None } from '../../../const';
+import { Link } from 'react-router-dom';
 
 const CardPlayer = ({
   previewVideoLink,
@@ -21,18 +21,11 @@ const CardPlayer = ({
   }, []);
 
   return (
-    <React.Fragment>
-      <Link to={`/films/${id}/`} className="small-film-card__image" style={None} >
-        <video poster={previewImage} muted width="280" ref={ref} height="175">
-          <source src={previewVideoLink} />
-        </video>
-      </Link>
-      <h3 className="small-film-card__title">
-        <Link to={`/films/${id}/`} className="small-film-card__link">
-          {name}
-        </Link>
-      </h3>
-    </React.Fragment>
+    <Link to={`/films/${id}/`} className="small-film-card__image" style={None} >
+      <video poster={previewImage} muted width="280" ref={ref} height="175">
+        <source src={previewVideoLink} />
+      </video>
+    </Link>
   );
 };
 

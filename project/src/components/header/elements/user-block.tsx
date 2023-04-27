@@ -2,14 +2,22 @@ import { useAppDispatch } from '../../../hooks';
 import { logoutAction } from '../../../store/api-actions';
 import { redirectToRoute } from '../../../store/action';
 import { AppRoute } from '../../../const';
+import { getAuthorizationStatus } from '../../../store/user-process/selectors';
+import { useAppSelector } from '../../../hooks';
+import { AuthorizationStatus } from '../../../const';
 
 function UserBlock(): JSX.Element {
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const handleClickSignOut = () => {
     dispatch(logoutAction());
   };
   const handleClickAvatar = () => {
-    dispatch(redirectToRoute(AppRoute.MyList));
+    if(authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(redirectToRoute(AppRoute.MyList));
+    } else {
+      dispatch(redirectToRoute(AppRoute.SignIn));
+    }
   };
   return (
     <ul className="user-block">

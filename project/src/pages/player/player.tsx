@@ -29,6 +29,13 @@ function Player(): JSX.Element {
     }
   }, [currentTime, params.id, setCurrentTime, setTimeLeft]);
 
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.play();
+      setIsPlaying(true);
+    }
+  }, []);
+
   const handleLoadedData = () => {
     setIsLoadedData(true);
   };
@@ -43,6 +50,9 @@ function Player(): JSX.Element {
     if (ref.current) {
       if(!isPlaying) {
         ref.current.play();
+        ref.current.play().catch((err) =>{
+          throw err;
+        });
         setIsPlaying(true);
       } else {
         ref.current.pause();

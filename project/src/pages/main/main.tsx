@@ -66,11 +66,11 @@ function Main(): JSX.Element {
       </Helmet>
       {renderPromo()}
 
-      <div className='page-content'>
-        <section className='catalog'>
+      <div className='page-content' key={'page-main'}>
+        <section className='catalog' key={'page-main-catalog'}>
           <h2 className='catalog__title visually-hidden'>Catalog</h2>
           <GenresList films={films} genre={searchParams.get('genre')}/>
-          <FilmsList filmsFiltered={filteredFilms.slice(0, renderedFilmsCount)} />
+          <FilmsList filmsFiltered={filteredFilms.slice(0, renderedFilmsCount)} key={'page-main-filmList'}/>
           {filmsCount > renderedFilmsCount && (<ShowMore handleClick={handleClick} />)}
         </section>
         <Footer />

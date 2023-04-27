@@ -6,24 +6,20 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { EMAIL_REGEXP } from '../../const';
 import { checkPassword } from '../../utils/utils';
-import { getAuthorizationStatus, getAuthorizationError } from '../../store/user-process/selectors';
-import { AuthorizationStatus, AppRoute } from '../../const';
-import { redirectToRoute } from '../../store/action';
+import { getAuthorizationError } from '../../store/user-process/selectors';
+import { AppRoute } from '../../const';
+import { useRedirectingIfAuth } from '../../hooks/use-redirect-if-auth';
 
 function SignIn(): JSX.Element {
+  useRedirectingIfAuth(AppRoute.Main);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const authorizationError = useAppSelector(getAuthorizationError);
   const [error, setError] = useState({error: false, message: ''});
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
   };
-
-  if(authorizationStatus === AuthorizationStatus.Auth) {
-    dispatch(redirectToRoute(AppRoute.Main));
-  }
 
   if(authorizationError) {
     setError({error: true, message:'We can’t recognize this email and password combination. Please try again.s'});
