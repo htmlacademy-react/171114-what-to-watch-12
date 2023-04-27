@@ -3,6 +3,8 @@ import { createMemoryHistory } from 'history';
 import HistoryRouter from '../history-router/history-router';
 import ScrollToTop from './scroll-to-top';
 
+window.scrollTo = jest.fn();
+
 describe('Component: ScrollToTop', () => {
 
   it('ScrollToTop renders children correctly', () => {

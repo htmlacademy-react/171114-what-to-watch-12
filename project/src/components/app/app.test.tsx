@@ -26,6 +26,11 @@ const store = mockStore({
   },
 });
 
+window.scrollTo = jest.fn();
+
+window.HTMLMediaElement.prototype.play = () => new Promise((resolve) => {
+  resolve();});
+
 const history = createMemoryHistory();
 
 const fakeApp = (

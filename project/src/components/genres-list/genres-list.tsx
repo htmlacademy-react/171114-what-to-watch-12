@@ -7,7 +7,6 @@ type GenresListProps = {
   genre: string | null;
 };
 
-
 function GenresList({films, genre}: GenresListProps): JSX.Element {
   const genres = films.map((it) => it.genre);
   const uniqueGenres = [DEFAULT_GENRE, ...new Set(genres)].slice(0, MAX_COUNT_OF_GENRE_LIST);
@@ -21,8 +20,7 @@ function GenresList({films, genre}: GenresListProps): JSX.Element {
   return (
     <ul className='catalog__genres-list'>
       {uniqueGenres.map((genreName) => (
-        <li
-          className={getActiveGenreClassName(genreName)}
+        <li className={getActiveGenreClassName(genreName)}
           key={genreName}
         >
           <NavLink to={`?genre=${genreName}`} className='catalog__genres-link'>
