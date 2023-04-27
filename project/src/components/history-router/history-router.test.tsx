@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import HistoryRouter, { HistoryRouterProps } from './history-router';
 
-describe('Component: <HistoryRouter>', () => {
+describe('Component: HistoryRouter', () => {
   let history: ReturnType<typeof createMemoryHistory>;
   let props: HistoryRouterProps;
 

@@ -27,7 +27,7 @@ const store = mockStore({
   },
 });
 
-describe('Component: NotFoundScreen', () => {
+describe('Component: UserBlock', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 

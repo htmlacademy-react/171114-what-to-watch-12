@@ -19,7 +19,7 @@ function Spinner ({loading}: SpinnerProps): JSX.Element {
   return (
     <div className="sweet-loading">
       <BeatLoader
-        color='#2B1B1B'
+        color='#37a100'
         loading={loading}
         cssOverride={override}
         size={15}

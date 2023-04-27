@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react/pure';
 import { Provider } from 'react-redux';
-import { useRedirectingIfAuthorized } from './use-redirect-if-authorizated';
+import { useRedirectingIfAuth } from './use-redirect-if-auth';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { AuthorizationStatus, NameSpace } from '../const';
 
@@ -13,7 +13,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 
-describe('Hook: useRedirectingIfAuthorized()', () => {
+describe('Hook: useRedirectingIfAuth()', () => {
   it('redirects to specified link if the user is authorized', () => {
     const LINK = '/MOCK-REDIRECT-LINK';
 
@@ -25,7 +25,7 @@ describe('Hook: useRedirectingIfAuthorized()', () => {
     });
 
     renderHook(
-      () => useRedirectingIfAuthorized(LINK),
+      () => useRedirectingIfAuth(LINK),
       { wrapper: ({ children }) => (<Provider store={mockStore}>{children}</Provider>) },
     );
 
@@ -44,7 +44,7 @@ describe('Hook: useRedirectingIfAuthorized()', () => {
     });
 
     renderHook(
-      () => useRedirectingIfAuthorized(LINK),
+      () => useRedirectingIfAuth(LINK),
       { wrapper: ({ children }) => (<Provider store={mockStore}>{children}</Provider>) },
     );
 
@@ -62,7 +62,7 @@ describe('Hook: useRedirectingIfAuthorized()', () => {
     });
 
     renderHook(
-      () => useRedirectingIfAuthorized(LINK),
+      () => useRedirectingIfAuth(LINK),
       { wrapper: ({ children }) => (<Provider store={mockStore}>{children}</Provider>) },
     );
 

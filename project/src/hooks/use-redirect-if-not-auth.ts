@@ -4,13 +4,13 @@ import { getAuthorizationStatus } from '../store/user-process/selectors';
 import { useAppSelector } from '.';
 import { AuthorizationStatus } from '../const';
 
-export function useRedirectingIfAuthorized(link: string): void {
+export function useRedirectingIfNotAuth(link: string): void {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (
-      authorizationStatus === AuthorizationStatus.Auth &&
+      authorizationStatus === AuthorizationStatus.NoAuth &&
       link &&
       navigate &&
       true

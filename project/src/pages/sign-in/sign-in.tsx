@@ -8,10 +8,10 @@ import { EMAIL_REGEXP } from '../../const';
 import { checkPassword } from '../../utils/utils';
 import { getAuthorizationError } from '../../store/user-process/selectors';
 import { AppRoute } from '../../const';
-import { useRedirectingIfAuthorized } from '../../hooks/use-redirect-if-authorizated';
+import { useRedirectingIfAuth } from '../../hooks/use-redirect-if-auth';
 
 function SignIn(): JSX.Element {
-  useRedirectingIfAuthorized(AppRoute.Main);
+  useRedirectingIfAuth(AppRoute.Main);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();

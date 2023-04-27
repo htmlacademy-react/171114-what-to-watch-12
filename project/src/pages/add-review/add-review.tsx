@@ -6,27 +6,18 @@ import FilmCardHeader from '../../components/film-card-header/film-card-header';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { store } from '../../store';
-import { fetchFilmAction, checkAuthAction } from '../../store/api-actions';
+import { fetchFilmAction } from '../../store/api-actions';
 import { getFilm } from '../../store/film-process/selectors';
-import { AuthorizationStatus, AppRoute } from '../../const';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useRedirectingIfNotAuth } from '../../hooks/use-redirect-if-not-auth';
 
 function AddReview(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  useRedirectingIfNotAuth(AppRoute.SignIn);
   const params = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (authorizationStatus !== AuthorizationStatus.Auth) {
-      navigate(AppRoute.SignIn);
-    }
-  }, [authorizationStatus, navigate]);
 
   useEffect(() => {
     if (params.id) {
       store.dispatch(fetchFilmAction({ id: params.id }));
-      store.dispatch(checkAuthAction());
     }
   }, [params.id]);
 

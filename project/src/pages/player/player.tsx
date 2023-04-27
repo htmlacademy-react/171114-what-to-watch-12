@@ -50,6 +50,9 @@ function Player(): JSX.Element {
     if (ref.current) {
       if(!isPlaying) {
         ref.current.play();
+        ref.current.play().catch((err) =>{
+          throw err;
+        });
         setIsPlaying(true);
       } else {
         ref.current.pause();

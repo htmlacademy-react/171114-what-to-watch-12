@@ -3,6 +3,7 @@ import { FilmCardProps } from '../../types/film-info';
 import CardPlayer from './elements/card-player';
 import CardPoster from './elements/card-poster';
 import { TIME_OUT_DELAY } from '../../const';
+import { Link } from 'react-router-dom';
 
 function FilmCard({
   name,
@@ -44,6 +45,11 @@ function FilmCard({
       onMouseLeave={handleMouseLeave}
     >
       {renderFilm()}
+      <h3 className="small-film-card__title">
+        <Link to={`/films/${id}/`} className="small-film-card__link">
+          {name}
+        </Link>
+      </h3>
     </article>
   );
 }
