@@ -34,9 +34,9 @@ window.HTMLMediaElement.prototype.play = () => new Promise((resolve) => {
 const history = createMemoryHistory();
 
 const fakeApp = (
-  <Provider store={store}>
-    <HistoryRouter history={history}>
-      <App />
+  <Provider store={store} key={'1'}>
+    <HistoryRouter history={history} key={'2'}>
+      <App key={'3'}/>
     </HistoryRouter>
   </Provider>
 );

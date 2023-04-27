@@ -105,15 +105,15 @@ function Film(): JSX.Element {
         <title>What to watch. {film.name}</title>
       </Helmet>
       <section className='film-card film-card--full'>
-        <div className='film-card__hero'>
-          <div className='film-card__bg'>
+        <div className='film-card__hero' key={'film-card_hero'}>
+          <div className='film-card__bg'key={'film-card_bg'}>
             <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className='visually-hidden'>WTW</h1>
           < Header />
 
-          <div className='film-card__wrap'>
+          <div className='film-card__wrap' key={'film-card_wrap'}>
             <div className='film-card__desc'>
               <h2 className='film-card__title'>{film.name}</h2>
               <p className='film-card__meta'>
@@ -131,22 +131,22 @@ function Film(): JSX.Element {
           </div>
         </div>
 
-        <div className='film-card__wrap film-card__translate-top'>
-          <div className='film-card__info'>
+        <div className='film-card__wrap film-card__translate-top' key={'film-card'}>
+          <div className='film-card__info' key={'film-card_info'}>
             <div className='film-card__poster film-card__poster--big'>
               <img src={film.posterImage} alt={`${film.name} poster`} width='218' height='327' />
             </div>
 
-            <div className='film-card__desc'>
+            <div className='film-card__desc' key={'film-card_deck'}>
               <nav className='film-nav film-card__nav'>
                 <ul className='film-nav__list'>
-                  <li className={setActiveTab('overview')}>
+                  <li className={setActiveTab('overview')} key={'overview'}>
                     <NavLink to={`/films/${film.id}/overview`} className='film-nav__link' style={None} >Overview</NavLink>
                   </li>
-                  <li className={setActiveTab('details')}>
+                  <li className={setActiveTab('details')} key={'details'}>
                     <NavLink to={`/films/${film.id}/details`} className='film-nav__link' style={None} >Details</NavLink>
                   </li>
-                  <li className={setActiveTab('reviews')}>
+                  <li className={setActiveTab('reviews')} key={'reviews'}>
                     <NavLink to={`/films/${film.id}/reviews`} className='film-nav__link' style={None} >Reviews</NavLink>
                   </li>
                 </ul>
@@ -157,7 +157,7 @@ function Film(): JSX.Element {
         </div>
       </section>
 
-      <div className='page-content'>
+      <div className='page-content' key={'page-content'}>
         {isFilmsSimilarDataLoading ? <LikeThisLoading/> : <LikeThis films={filmsSimilar}/>}
         <Footer />
       </div>

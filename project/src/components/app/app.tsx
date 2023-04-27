@@ -32,34 +32,42 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Main}
             element={<Main />}
+            key={AppRoute.Main}
           />
           <Route
             path={AppRoute.AddReview}
             element={<AddReview/>}
+            key={AppRoute.AddReview}
           />
           <Route
             path={AppRoute.Film}
             element={<Film />}
+            key={AppRoute.Film}
           />
           <Route
             path={AppRoute.FilmTab}
             element={<Film />}
+            key={AppRoute.FilmTab}
           />
           <Route
             path={AppRoute.SignIn}
             element={<SignIn />}
+            key={AppRoute.SignIn}
           />
           <Route
             path={AppRoute.MyList}
             element={<MyList />}
+            key={AppRoute.MyList}
           />
           <Route
             path={AppRoute.Player}
             element={<Player />}
+            key={AppRoute.Player}
           />
           <Route
             path="*"
             element={<NotFoundScreen />}
+            key={'*'}
           />
         </Routes>
       </ScrollToTop>

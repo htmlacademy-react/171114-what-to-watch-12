@@ -10,7 +10,7 @@ describe('Component: LikeThis', () => {
 
     render(
       <HistoryRouter history={history}>
-        <LikeThis films={films}/>
+        <LikeThis films={films} />
       </HistoryRouter>,
     );
 
